@@ -189,7 +189,6 @@ describe('Pantry', () => {
   it('should be able to add item to this.pantry', () => {
     userPantry.addToPantry(newIngredient, 5);
     expect(userPantry.pantry).to.be.an('array').with.a.lengthOf(5);
-    console.log(userPantry.pantry);
   })
 });
 

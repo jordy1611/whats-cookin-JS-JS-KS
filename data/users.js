@@ -7602,5 +7602,7 @@ let usersData = [
   }
 ]
 
-module.exports = usersData
-;
+
+if (typeof module !== 'undefined') {
+  module.exports = usersData;
+}

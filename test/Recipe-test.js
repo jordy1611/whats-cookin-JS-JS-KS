@@ -66,11 +66,11 @@ describe("Recipe", function () {
 
   // it('should have an image link that is a string', function() {
   //   expect(recipe.image).to.be.a('string');
-  // });
+  });
 
   it('should have a list of ingredients', function() {
     expect(recipe.ingredients).to.deep.equal([ingredient1, ingredient2, ingredient3]);
-    // expect(recipe.ingredients.length).to.equal(3);
+    expect(recipe.ingredients.length).to.equal(3);
   });
 
   // it('should have a list of ingredients that is an array of objects', function() {
@@ -131,10 +131,10 @@ describe("Recipe", function () {
     expect(recipe.getIngredientCost(ingredient1)).to.equal(1.42);
   });
 
-  it('should return no cost if ingredient has no id', function() {
+  it('should return no cost if ingredient has no id', function(){
     const badIngredient = {"estimatedCostInCents": 205}
-    expect(recipe.getIngredientCost(badIngredient).to.equal(0);
-  })
+    expect(recipe.getIngredientCost(badIngredient).to.equal(0));
+  });
 
   //what if no cost
 
