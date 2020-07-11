@@ -1,4 +1,4 @@
-const ingredientsData = require('../data/ingredients.js');
+// const ingredientsData = require('../data/ingredients.js');
 
 class Recipe {
   constructor({id, image, ingredients, instructions, name, tags}) {
@@ -22,7 +22,7 @@ class Recipe {
   };
 
   getIngredientCost(ingredient) { //returns cost of ingredient in dollar amount
-    // return 0 
+    // return 0
     // use .find like in checkForIngredient
     let cost = 0;
     ingredientsData.forEach(ingredientData => {
@@ -60,5 +60,6 @@ class Recipe {
     return this.tags.includes(tag)
   };
 }
-
-module.exports = Recipe;
+if (typeof module !== 'undefined') {
+  module.exports = Recipe;
+}
