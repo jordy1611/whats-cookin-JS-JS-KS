@@ -1234,7 +1234,6 @@ let ingredientsData = [
   }
 ]
 
-
 if (typeof module !== 'undefined') {
   module.exports = ingredientsData;
 }

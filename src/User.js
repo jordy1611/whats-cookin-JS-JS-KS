@@ -1,4 +1,4 @@
-const ingredientsData = require('../data/ingredients');
+// let ingredientsInfo = require('../data/ingredients');
 
 
 
