@@ -8,8 +8,8 @@
 
 console.log('Hello World');
 
-// const allRecipes;
-// const userRecipes;
+const allRecipes = generateRecipes(recipeData);
+// const userRecipes = generateRecipeCards();
 // const shoppingList;
 
 //eventListeners
@@ -47,3 +47,8 @@ function displayElement(className) {
 }
 
 //helper functions
+
+// can be tested - should generate array of all recipes on load
+function generateRecipes(recipesInfo) {
+  return recipesInfo.map(recipeInfo => new Recipe(recipeInfo));
+}
