@@ -81,16 +81,6 @@ h2 {
   grid-template-areas: 'a';
 }
 
-.hidden-card {
-  opacity: 0;
-  grid-area: a;
-  align-self: center;
-  justify-self: center;
-  text-align: center;
-  /* position: absolute; */
-  z-index: 1;
-}
-
 .displayed-card {
   grid-area: a;
   position: absolute;
@@ -110,6 +100,10 @@ h2 {
 
 .hidden-card {
   background-color: #FA8A42;
+  grid-area: a;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
   margin: 0 7em 0 7em;
   position: absolute;
   z-index: 1;
@@ -119,7 +113,7 @@ h2 {
 
 .recipe-card > .hidden-card:hover {
   opacity: .85;
-   transform: scale(2.0)
+   transform: scale(1.0)
 }
 
 .user-pantry,

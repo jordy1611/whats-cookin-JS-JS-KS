@@ -58,39 +58,52 @@ function onLoad() {
 
 function displayRecipeCards(recipeArray) { //image might have quotes already around it
   recipeArray.forEach(function(recipe) {
+
     const card = `
     <article class="recipe-card">
-      <div class="hidden-card">
-        blah blah blah blah </br>
-        blah blah blah blah blah </br>
-        blah blah blah blah </br>
-        blah blah blah blah blah </br>
-        blah blah blah blah </br>
-        blah blah blah blah blah </br>
-        blah blah blah blah </br>
-        blah blah blah blah blah </br>
-        blah blah blah blah </br>
-        blah blah blah blah blah </br>
-        blah blah blah blah </br>
-        blah blah blah blah blah </br>
-      </div>
+      <section class="hidden-card">
+      </section>
       <section class="displayed-card">
         <img class="recipe-img" src=${recipe.image}>
         <p class="recipe-name">${recipe.name}</p>
-        <img class="delete-white" src="../assets/star.svg" alt="White Delete Icon">
       </section>
     </article>`;
+    // let ingredients = [];
     cardsBodySection.insertAdjacentHTML('afterbegin', card);
+    recipe.ingredients.forEach(function(ingredient) {
+      ingredient = `${getIngredientName(ingredient)}: ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}</br>`
+      document.querySelector('.hidden-card').insertAdjacentHTML('beforeend', ingredient);
+    })
+    recipe.instructions.forEach(function(instruction) {
+      instruction = `${instruction.number}. ${instruction.instruction}</br>`
+      document.querySelector('.hidden-card').insertAdjacentHTML('beforeend', instruction);
+    })
+    // // hidden ingredients insertAdjacentHTML
+    // hidden instruction insertAdjacentHTML
   })
 }
 //helper functions
+function listIngredients(ingredientsArray) {
+  let ingredienstList =[];
+  ingredientsArray.forEach()
+}
 
+function getIngredientName(ingredient) {
+  //returns name of ingredient
+  // use .find like in checkForIngredient
+  let name;
+  ingredientsData.forEach(ingredientData => {
+    if (ingredient.id === ingredientData.id) {
+      name = ingredientData.name;
+    }
+  })
+  return name;
+}
 // can be tested - should generate array of all recipes on load
 function generateRecipes(recipesInfo) {
   return recipesInfo.map(recipeInfo => new Recipe(recipeInfo));
 }
 
-<<<<<<< HEAD
 function randomizeUser() {
   let randomIndex = Math.floor(Math.random() * usersData.length);
   let randomUser = usersData[randomIndex];
@@ -120,5 +133,3 @@ function randomizeUser() {
 //   })
 //   return searchedRecipes;
 // }
-=======
->>>>>>> 609c7f434be3d12a4750121d049a1890bcd54863
