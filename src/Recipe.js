@@ -21,6 +21,16 @@ class Recipe {
     return name;
   };
 
+  getIngredientName(ingredient) { 
+    let amount;
+    ingredientsData.forEach(ingredientData => {
+      if (ingredient.id === ingredientData.id) {
+        amount = ingredientData.quantity.amount;
+      }
+    })
+    return amount;
+  };
+
   getIngredientCost(ingredient) { //returns cost of ingredient in dollar amount
     // return 0 
     // use .find like in checkForIngredient
