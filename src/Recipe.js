@@ -60,6 +60,7 @@ class Recipe {
     return this.tags.includes(tag)
   };
 }
+
 if (typeof module !== 'undefined') {
   module.exports = Recipe;
 }
