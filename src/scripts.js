@@ -5,6 +5,7 @@
 // const Recipe = require('./Recipe');
 // const User = require('./User');
 // const Pantry = require('./Pantry');
+// const searchInput = document.querySelector('.search-input');
 const cardsBodySection = document.querySelector('.cards-body'); // see if we can create this in a function
 console.log('Hello World');
 
@@ -15,9 +16,8 @@ console.log('Hello World');
 //eventListeners
 window.addEventListener('click', clickHandler);
 window.addEventListener('load', onLoad);
+// searchInput.addEventListener('input', searchRecipes);
 //eventHandlers
-
-// searchbar.addEventListener("input", searchInput);
 
 function clickHandler(event) {
   if (event.target.classList.contains('recipes-button')) {
@@ -75,6 +75,7 @@ function displayRecipeCards(recipeArray) { //image might have quotes already aro
       <section class="displayed-card">
         <img class="recipe-img" src=${recipe.image}>
         <p class="recipe-name">${recipe.name}</p>
+        <img class="delete-white" src="../assets/star.svg" alt="White Delete Icon">
       </section>
     </article>`;
     cardsBodySection.insertAdjacentHTML('afterbegin', card);
@@ -88,8 +89,31 @@ function generateRecipes(recipesInfo) {
 }
 
 function randomizeUser() {
-  randomIndex = Math.floor(Math.random() * usersData.length);
-  randomUser = usersData[randomIndex];
+  let randomIndex = Math.floor(Math.random() * usersData.length);
+  let randomUser = usersData[randomIndex];
   console.log("USER", randomUser)
   user = new User(randomUser.name, randomUser.id, randomUser.pantry);
 }
+
+// function searchRecipes(input) {
+//   // let ingredients = this.filterIngredientData()
+//   let ingredients = user.filterIngredientData();
+//   let searchedIngriedients = ingredients.reduce((acc, ingredient) => {
+//     if (ingredient.name.includes(input)) {
+//     acc.push(ingredient.id)
+//     }
+//
+//     return acc
+//   }, [])
+//   let searchedRecipes = user.favoriteRecipes.filter(recipe => {
+//     console.log("SEARCH", searchedRecipes)
+//     var recipeIng = recipe.ingredients.filter(ingredient => {
+//       return searchedIngriedients.includes(ingredient.id)
+//     })
+//     console.log(recipe.name, recipeIng)
+//     if(recipe.name.includes(input) || recipeIng.length > 0) {
+//       return recipe
+//     }
+//   })
+//   return searchedRecipes;
+// }
