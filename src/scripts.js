@@ -9,6 +9,8 @@
 // const Pantry = require('./Pantry');
 // const searchInput = document.querySelector('.search-input');
 const cardsBodySection = document.querySelector('.cards-body'); // see if we can create this in a function
+const pantryListSection = document.querySelector('.user-pantry');
+const missingIngredientsList = document.querySelector('.missing-ingredients');
 console.log('Hello World');
 
 // const allRecipes = generateRecipes(recipeData);
@@ -90,7 +92,6 @@ function generateRecipes(recipesInfo) {
   return recipesInfo.map(recipeInfo => new Recipe(recipeInfo));
 }
 
-<<<<<<< HEAD
 function randomizeUser() {
   let randomIndex = Math.floor(Math.random() * usersData.length);
   let randomUser = usersData[randomIndex];
@@ -98,6 +99,13 @@ function randomizeUser() {
   user = new User(randomUser.name, randomUser.id, randomUser.pantry);
 }
 
+function displayMissingIngredients(listArray, listSection) { 
+  listArray.forEach(function (item) {
+    const card = `
+        <div class="ingredient">${item.name, item.amount, item.unit}</div>`;
+    listSection.insertAdjacentHTML('afterbegin', card);
+  })
+}
 // function searchRecipes(input) {
 //   // let ingredients = this.filterIngredientData()
 //   let ingredients = user.filterIngredientData();
@@ -120,5 +128,3 @@ function randomizeUser() {
 //   })
 //   return searchedRecipes;
 // }
-=======
->>>>>>> 609c7f434be3d12a4750121d049a1890bcd54863
