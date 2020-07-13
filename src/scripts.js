@@ -58,11 +58,11 @@ function hideElement(className) {
 
 function onLoad() {
   const allRecipes = generateRecipes(recipeData); //randomize recipes?
-  displayRecipeCards(allRecipes);
+  displayRecipeCards(allRecipes, cardsBodySection);
   randomizeUser();
 }
 
-function displayRecipeCards(recipeArray) { //randomize?
+function displayRecipeCards(recipeArray, cardsSection) { //randomize?
   recipeArray.forEach(function(recipe) {
     const card = `
     <article class="recipe-card">
@@ -73,7 +73,7 @@ function displayRecipeCards(recipeArray) { //randomize?
         <p class="recipe-name">${recipe.name}</p>
       </section>
     </article>`;
-    cardsBodySection.insertAdjacentHTML('afterbegin', card);
+    cardsSection.insertAdjacentHTML('afterbegin', card);
 
     displayHiddenIngredients(recipe.ingredients, recipe);
     // recipe.ingredients.forEach(function(ingredient) {
