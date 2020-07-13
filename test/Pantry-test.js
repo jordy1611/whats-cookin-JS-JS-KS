@@ -125,7 +125,7 @@ describe('Pantry', () => {
       })
     user.addRecipeToCook(recipe2);
     userPantry = new Pantry(user);
-    newIngredient = {name : 'lettuce', id : 88};
+    newIngredient = {name: 'lettuce', id: 88};
   });
 
   it('should be a function', () => {
@@ -163,6 +163,7 @@ describe('Pantry', () => {
   it('should list additional ingredients user needs to make recipe', () => {
     userPantry.checkPantry(recipe2);
     expect(userPantry.shoppingList).to.be.an('array').with.a.lengthOf(3);
+    console.log(userPantry.shoppingList);
   });
 
   // it.skip('should check if pantry ingrendient amount is enough to make recipe for each ingredient'{

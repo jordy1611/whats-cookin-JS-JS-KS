@@ -38,7 +38,7 @@ class User {
 
   filterIngredientData() {
     return ingredientsData.filter(data => {
-      if(data.id && data.name && data.estimatedCostInCents) {
+      if (data.id && data.name && data.estimatedCostInCents) {
         return true;
       }
     })
@@ -48,7 +48,7 @@ class User {
     let ingredients = this.filterIngredientData()
     let searchedIngriedients = ingredients.reduce((acc, ingredient) => {
       if (ingredient.name.includes(input)) {
-      acc.push(ingredient.id)
+        acc.push(ingredient.id)
       }
 
       return acc
@@ -58,7 +58,7 @@ class User {
         return searchedIngriedients.includes(ingredient.id)
       })
       console.log(recipe.name, recipeIng)
-      if(recipe.name.includes(input) || recipeIng.length > 0) {
+      if (recipe.name.includes(input) || recipeIng.length > 0) {
         return recipe
       }
     })
@@ -71,12 +71,12 @@ class User {
 
 
 
-  // showInputFinder() {
-  //   var input = searchbar.value;
-  //   var foundRecipes = searchFavoriteRecipes(searchBarInput);
-  //   updatePageHtml(foundRecipes);
+// showInputFinder() {
+//   var input = searchbar.value;
+//   var foundRecipes = searchFavoriteRecipes(searchBarInput);
+//   updatePageHtml(foundRecipes);
 
-    //DOM manipulation for later down the road
+//DOM manipulation for later down the road
 
 
 

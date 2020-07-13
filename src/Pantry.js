@@ -14,10 +14,10 @@ class Pantry {
     recipe.ingredients.forEach(ingredient => {
       if (!pantryIngredients.hasOwnProperty(ingredient.id)) {
         hasIngredients = false;
-        this.addToShoppingList(ingredient);
+        this.addToShoppingList(ingredient, recipe);
       } else if (pantryIngredients[ingredient.id] < ingredient.quantity.amount) {
         hasIngredients = false;
-        this.addToShoppingList(ingredient);
+        this.addToShoppingList(ingredient, recipe);
       } else {
         hasIngredients = true;
       }
@@ -25,10 +25,15 @@ class Pantry {
     return hasIngredients;
   }
 
-  addToShoppingList(ingredient) {
-    this.shoppingList.push(ingredient);
-  }
-
+  addToShoppingList(ingredient, recipe) {
+    let updateShoppingList =  {
+      id: ingredient.id, 
+      name : recipe.getIngredientName(ingredient), 
+      amount : ingredient.quantity.amount
+    }
+    this.shoppingList.push(updateShoppingList);
+  };
+    
   pantryIngredientAdjust(recipe) {
     const recipeIngredients = recipe.ingredients.map(ingredient => ({ id: ingredient.id, amount: ingredient.quantity.amount }));
 
@@ -81,7 +86,6 @@ class Pantry {
     const id = ingredient.id
     const pantryItem = {ingredient: id, amount: quantity};
     this.pantry.push(pantryItem);
-
   }
 
   returnShoppingList() {
@@ -91,15 +95,8 @@ class Pantry {
   returnPantry() {
     return this.pantry;
   }
-
-
-  /*
-  mealsToCook() {
-    stretch method
-    (only applicable if users have a list of mealsToCook; can be considered a stretch goal)
-  }
-  */
 }
+
 
 if (typeof module !== 'undefined') {
   module.exports = Pantry;
