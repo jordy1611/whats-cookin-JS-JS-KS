@@ -16,6 +16,9 @@ console.log('Hello World');
 window.addEventListener('click', clickHandler);
 window.addEventListener('load', onLoad);
 //eventHandlers
+
+// searchbar.addEventListener("input", searchInput);
+
 function clickHandler(event) {
   if (event.target.classList.contains('recipes-button')) {
     displayRecipesPage();
@@ -48,6 +51,7 @@ function displayElement(className) {
 function onLoad() {
   const allRecipes = generateRecipes(recipeData);
   displayRecipeCards(allRecipes);
+  randomizeUser();
 }
 
 function displayRecipeCards(recipeArray) { //image might have quotes already around it
@@ -81,4 +85,11 @@ function displayRecipeCards(recipeArray) { //image might have quotes already aro
 // can be tested - should generate array of all recipes on load
 function generateRecipes(recipesInfo) {
   return recipesInfo.map(recipeInfo => new Recipe(recipeInfo));
+}
+
+function randomizeUser() {
+  randomIndex = Math.floor(Math.random() * usersData.length);
+  randomUser = usersData[randomIndex];
+  console.log("USER", randomUser)
+  user = new User(randomUser.name, randomUser.id, randomUser.pantry);
 }
