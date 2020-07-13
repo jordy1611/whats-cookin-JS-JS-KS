@@ -58,7 +58,6 @@ function onLoad() {
 
 function displayRecipeCards(recipeArray) { //image might have quotes already around it
   recipeArray.forEach(function(recipe) {
-
     const card = `
     <article class="recipe-card">
       <section class="hidden-card">
@@ -68,36 +67,25 @@ function displayRecipeCards(recipeArray) { //image might have quotes already aro
         <p class="recipe-name">${recipe.name}</p>
       </section>
     </article>`;
-    // let ingredients = [];
     cardsBodySection.insertAdjacentHTML('afterbegin', card);
+
     recipe.ingredients.forEach(function(ingredient) {
-      ingredient = `${getIngredientName(ingredient)}: ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}</br>`
-      document.querySelector('.hidden-card').insertAdjacentHTML('beforeend', ingredient);
-    })
+      ingredient = `${recipe.getIngredientName(ingredient)}:
+      ${ingredient.quantity.amount.toFixed(2)}
+      ${ingredient.quantity.unit}</br>`
+      updateHiddenCard(ingredient);
+    });
+
     recipe.instructions.forEach(function(instruction) {
-      instruction = `${instruction.number}. ${instruction.instruction}</br>`
-      document.querySelector('.hidden-card').insertAdjacentHTML('beforeend', instruction);
-    })
-    // // hidden ingredients insertAdjacentHTML
-    // hidden instruction insertAdjacentHTML
+      instruction = `${instruction.number}.
+      ${instruction.instruction}</br>`
+      updateHiddenCard(instruction);
+    });
   })
-}
-//helper functions
-function listIngredients(ingredientsArray) {
-  let ingredienstList =[];
-  ingredientsArray.forEach()
 }
 
-function getIngredientName(ingredient) {
-  //returns name of ingredient
-  // use .find like in checkForIngredient
-  let name;
-  ingredientsData.forEach(ingredientData => {
-    if (ingredient.id === ingredientData.id) {
-      name = ingredientData.name;
-    }
-  })
-  return name;
+function updateHiddenCard(item) {
+  document.querySelector('.hidden-card').insertAdjacentHTML('beforeend', item)
 }
 // can be tested - should generate array of all recipes on load
 function generateRecipes(recipesInfo) {
