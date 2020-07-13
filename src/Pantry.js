@@ -29,7 +29,7 @@ class Pantry {
     let updateShoppingList =  {
       id: ingredient.id, 
       name : recipe.getIngredientName(ingredient), 
-      amount : ingredients.quantity.amount
+      amount : ingredient.quantity.amount
     }
     this.shoppingList.push(updateShoppingList);
   };
@@ -95,14 +95,6 @@ class Pantry {
   returnPantry() {
     return this.pantry;
   }
-
-
-  /*
-  mealsToCook() {
-    stretch method
-    (only applicable if users have a list of mealsToCook; can be considered a stretch goal)
-  }
-  */
 }
 
 
