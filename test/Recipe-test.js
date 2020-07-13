@@ -5,7 +5,7 @@ const Recipe = require('../src/Recipe.js');
 const newRecipe = require('../data/recipes.js');
 describe("Recipe", function () {
   let recipe, ingredient1, ingredient2, ingredient3, instruction1, instruction2, instruction3;
-//need to creat sample ingredients data
+  //need to creat sample ingredients data
   before(function () {
     ingredient1 = {'id': 20081, 'quantity': {'amount': 1.5, 'unit': 'c'}};
     ingredient2 = {'id': 18372, 'quantity': {'amount': 0.5, 'unit': 'tsp'}};
@@ -14,12 +14,12 @@ describe("Recipe", function () {
     instruction2 = {'instruction': 'Add egg and vanilla and mix until combined.', 'number': 2};
     instruction3 = {'instruction': 'Add dry ingredients and mix on low just until incorporated. Stir in chocolate chips.Scoop the dough into 1,5 tablespoon size balls and place on a plate or sheet. Cover with saran wrap and chill at least 2 hours or overnight.When ready to bake, preheat oven to 350 degrees.', 'number': 3};
     recipe = new Recipe(
-    {'id': 595736,
-    'image': 'https://spoonacular.com/recipeImages/595736-556x370.jpg',
-    'ingredients': [ingredient1, ingredient2, ingredient3],
-    'instructions': [instruction1, instruction2, instruction3],
-    'name': 'Loaded Chocolate Chip Pudding Cookie Cups',
-    'tags': ['antipasti', 'starter', 'snack', 'appetizer']}
+      {'id': 595736,
+        'image': 'https://spoonacular.com/recipeImages/595736-556x370.jpg',
+        'ingredients': [ingredient1, ingredient2, ingredient3],
+        'instructions': [instruction1, instruction2, instruction3],
+        'name': 'Loaded Chocolate Chip Pudding Cookie Cups',
+        'tags': ['antipasti', 'starter', 'snack', 'appetizer']}
     );
   });
 
@@ -40,12 +40,12 @@ describe("Recipe", function () {
 
   it('should have an id of 0 if no id is entered', function() {
     const recipeNoId = new Recipe(
-    {
-    'image': 'https://spoonacular.com/recipeImages/595736-556x370.jpg',
-    'ingredients': [ingredient1, ingredient2, ingredient3],
-    'instructions': [instruction1, instruction2, instruction3],
-    'name': 'Loaded Chocolate Chip Pudding Cookie Cups',
-    'tags': ['antipasti', 'starter', 'snack', 'appetizer']}
+      {
+        'image': 'https://spoonacular.com/recipeImages/595736-556x370.jpg',
+        'ingredients': [ingredient1, ingredient2, ingredient3],
+        'instructions': [instruction1, instruction2, instruction3],
+        'name': 'Loaded Chocolate Chip Pudding Cookie Cups',
+        'tags': ['antipasti', 'starter', 'snack', 'appetizer']}
     );
     expect(recipeNoId.id).to.equal(0)
   });
@@ -56,11 +56,11 @@ describe("Recipe", function () {
 
   it('should have a defualt image link if no image is entered', function() {
     const recipeNoImage = new Recipe(
-    {'id': 595736,
-    'ingredients': [ingredient1, ingredient2, ingredient3],
-    'instructions': [instruction1, instruction2, instruction3],
-    'name': 'Loaded Chocolate Chip Pudding Cookie Cups',
-    'tags': ['antipasti', 'starter', 'snack', 'appetizer']}
+      {'id': 595736,
+        'ingredients': [ingredient1, ingredient2, ingredient3],
+            'instructions': [instruction1, instruction2, instruction3],
+        'name': 'Loaded Chocolate Chip Pudding Cookie Cups',
+        'tags': ['antipasti', 'starter', 'snack', 'appetizer']}
     );
     expect(recipeNoImage.image).to.equal('../assets/defaultRecipeImage.jpg');
 
@@ -94,11 +94,11 @@ describe("Recipe", function () {
 
   it('should have a default name when no name is entered', function() {
     const recipeNoName = new Recipe(
-    {'id': 595736,
-    'image': 'https://spoonacular.com/recipeImages/595736-556x370.jpg',
-    'ingredients': [ingredient1, ingredient2, ingredient3],
-    'instructions': [instruction1, instruction2, instruction3],
-    'tags': ['antipasti', 'starter', 'snack', 'appetizer']}
+      {'id': 595736,
+        'image': 'https://spoonacular.com/recipeImages/595736-556x370.jpg',
+        'ingredients': [ingredient1, ingredient2, ingredient3],
+        'instructions': [instruction1, instruction2, instruction3],
+        'tags': ['antipasti', 'starter', 'snack', 'appetizer']}
     );
     expect(recipeNoName.name).to.equal('No Name');
   });
@@ -106,7 +106,7 @@ describe("Recipe", function () {
   //   expect(recipe.name).to.be.a('string');
   // });
 
-  it('should have a list of tags', function() {
+  it('should have a list of tags', function () {
     expect(recipe.tags).to.deep.equal(['antipasti', 'starter', 'snack', 'appetizer']);
   });
 
@@ -115,11 +115,11 @@ describe("Recipe", function () {
   //   expect(recipe.tags[0]).to.be.a('string');
   // });
 
-  it('should return an ingredient\'s name', function(){
+  it('should return an ingredient\'s name', function () {
     expect(recipe.getIngredientName(ingredient1)).to.equal('wheat flour');
   });
 
-  it('should return a different ingredient\'s name', function(){
+  it('should return a different ingredient\'s name', function () {
     expect(recipe.getIngredientName(ingredient3)).to.equal('eggs');
   });
 
@@ -127,11 +127,11 @@ describe("Recipe", function () {
   //   expect(recipe.getIngredientName(ingredient1)).to.be.a('string');
   // });
 
-  it('should return an ingredient\'s cost', function(){
+  it('should return an ingredient\'s cost', function () {
     expect(recipe.getIngredientCost(ingredient1)).to.equal(1.42);
   });
 
-  it('should return no cost if ingredient has no id', function(){
+  it('should return no cost if ingredient has no id', function () {
     const badIngredient = {"estimatedCostInCents": 205}
     expect(recipe.getIngredientCost(badIngredient).to.equal(0));
   });
@@ -142,7 +142,7 @@ describe("Recipe", function () {
   //   expect(recipe.getIngredientCost(ingredient1)).to.be.a('number');
   // });
 
-  it('should calculate total cost of the recipe', function() {
+  it('should calculate total cost of the recipe', function () {
     expect(recipe.calculateTotalCost()).to.equal(11.96);
   });
   //what if ingredient price and/or amount is missing
@@ -151,7 +151,7 @@ describe("Recipe", function () {
   //   expect(recipe.calculateTotalCost()).to.be.a('number');
   // });
 
-  it('should return its own instructions', function() {
+  it('should return its own instructions', function () {
     expect(recipe.returnInstructions()).to.deep.equal([instruction1, instruction2, instruction3]);
     expect(recipe.returnInstructions().length).to.equal(3);
   });
@@ -165,7 +165,7 @@ describe("Recipe", function () {
   //   expect(instructions[0]).to.be.an('object');
   // });
 
-  it('should return its own ingredients', function() {
+  it('should return its own ingredients', function () {
     expect(recipe.returnIngredients()).to.deep.equal([ingredient1, ingredient2, ingredient3]);
     expect(recipe.returnIngredients().length).to.equal(3);
   });
@@ -181,17 +181,17 @@ describe("Recipe", function () {
     expect(recipe.checkForIngredient(ingredient1)).to.equal(true);
   });
 
-  it('should check if it does not include a specific ingredient', function() {
+  it('should check if it does not include a specific ingredient', function () {
     const ingredient4 = {"id": 19335, "name": "sucrose", "estimatedCostInCents": 902};
     expect(recipe.checkForIngredient(ingredient4)).to.equal(false);
   });
 
-  it('should check if it includes a specific tag', function() {
+  it('should check if it includes a specific tag', function () {
     let tag = 'antipasti';
     expect(recipe.checkForTag(tag)).to.equal(true);
   });
 
-  it('should check if it does not include a specific tag', function() {
+  it('should check if it does not include a specific tag', function () {
     let tag = 'salad';
     expect(recipe.checkForTag(tag)).to.equal(false);
   });
