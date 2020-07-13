@@ -213,11 +213,11 @@ describe('User', function() {
   });
 
   it('should remove recipe from favorite recipes', function() {
-     user.addFavoriteRecipes(recipe1);
-     user.addFavoriteRecipes(recipe2);
-     user.addFavoriteRecipes(recipe3);
-     user.removeFavoriteRecipes(recipe2);
-     expect(user.favoriteRecipes).to.deep.equal([recipe1, recipe3]);
+    user.addFavoriteRecipes(recipe1);
+    user.addFavoriteRecipes(recipe2);
+    user.addFavoriteRecipes(recipe3);
+    user.removeFavoriteRecipes(recipe2);
+    expect(user.favoriteRecipes).to.deep.equal([recipe1, recipe3]);
   });
 
   it('should add a recipe to cook', function() {
@@ -226,10 +226,10 @@ describe('User', function() {
   })
 
   it('should be able to filter favorite recipes by type', function() {
-     user.addFavoriteRecipes(recipe1);
-     user.addFavoriteRecipes(recipe2);
-     user.addFavoriteRecipes(recipe3);
-     expect(user.filterFavoriteRecipes('snack')).to.deep.equal([recipe1]);
+    user.addFavoriteRecipes(recipe1);
+    user.addFavoriteRecipes(recipe2);
+    user.addFavoriteRecipes(recipe3);
+    expect(user.filterFavoriteRecipes('snack')).to.deep.equal([recipe1]);
   });
 
   it('should be able to filter recipes to cook by type', function() {

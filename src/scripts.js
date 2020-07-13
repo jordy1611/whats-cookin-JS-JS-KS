@@ -1,6 +1,8 @@
 // const ingredientsData = require('../data/ingredients.js');
-// // const ingredientsData = require('../data/ingredients.js');
+// const ingredientsData = require('../data/ingredients.js');
 // const recipesData = require('../data/recipes');
+// const ingredients = require('../data/ingredients');
+// const recipes = require('../data/recipes');
 // const users = require('../data/users');
 // const Recipe = require('./Recipe');
 // const User = require('./User');
@@ -44,7 +46,7 @@ const displayPantryPage = () => {
 function displayElement(className) {
   document.querySelector(`.${className}`).classList.remove('hidden');
 }
-  function hideElement(className) {
+function hideElement(className) {
   document.querySelector(`.${className}`).classList.add('hidden');
 }
 
@@ -88,6 +90,7 @@ function generateRecipes(recipesInfo) {
   return recipesInfo.map(recipeInfo => new Recipe(recipeInfo));
 }
 
+<<<<<<< HEAD
 function randomizeUser() {
   let randomIndex = Math.floor(Math.random() * usersData.length);
   let randomUser = usersData[randomIndex];
@@ -117,3 +120,5 @@ function randomizeUser() {
 //   })
 //   return searchedRecipes;
 // }
+=======
+>>>>>>> 609c7f434be3d12a4750121d049a1890bcd54863
