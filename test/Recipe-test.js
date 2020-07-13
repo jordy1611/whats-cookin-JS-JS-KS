@@ -58,7 +58,7 @@ describe("Recipe", function () {
     const recipeNoImage = new Recipe(
       {'id': 595736,
         'ingredients': [ingredient1, ingredient2, ingredient3],
-            'instructions': [instruction1, instruction2, instruction3],
+        'instructions': [instruction1, instruction2, instruction3],
         'name': 'Loaded Chocolate Chip Pudding Cookie Cups',
         'tags': ['antipasti', 'starter', 'snack', 'appetizer']}
     );

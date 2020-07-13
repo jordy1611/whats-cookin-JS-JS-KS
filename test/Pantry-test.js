@@ -125,7 +125,7 @@ describe('Pantry', () => {
       })
     user.addRecipeToCook(recipe2);
     userPantry = new Pantry(user);
-    newIngredient = {name : 'lettuce', id : 88};
+    newIngredient = {name: 'lettuce', id: 88};
   });
 
   it('should be a function', () => {
