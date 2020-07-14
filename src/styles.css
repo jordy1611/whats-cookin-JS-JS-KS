@@ -18,10 +18,13 @@ header {
 }
 
 h1 {
+  color: #E4E8EB;
   margin: 0;
   font-size: 3em;
+  font-style: italic;
   grid-row: 2 / 3;
   grid-column-start: 1;
+  padding-left: 20px;
 }
 
 .user-profile-display {

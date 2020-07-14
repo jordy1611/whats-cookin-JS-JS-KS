@@ -120,20 +120,11 @@ function generateRecipes(recipesInfo) {
 function randomizeUser() {
   let randomIndex = Math.floor(Math.random() * usersData.length);
   let randomUser = usersData[randomIndex];
-  console.log("USER", randomUser)
   user = new User(randomUser.name, randomUser.id, randomUser.pantry);
   let greeting = document.querySelector('.user-profile-display');
-  greeting.innerHTML = `Welcome, ${randomUser.name}`
+  greeting.innerHTML = `Welcome, ${randomUser.name}!`
   return user;
 }
-
-// const pickRandomUser = () => {
-//   let randomUser = Math.floor((Math.random() * 49));
-//   user = new User(usersData[randomUser].id, usersData[randomUser].name, usersData[randomUser].pantry, )
-//   const welcomeMessage = document.querySelector('.welcome-user');
-//   welcomeMessage.innerHTML = `Welcome, ${user.name}!`;
-//   return user;
-// }
 
 const toggleFavoriteRecipe = (event, recipe) => {
   if (!recipe.isFavorite) {
