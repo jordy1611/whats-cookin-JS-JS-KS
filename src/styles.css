@@ -42,11 +42,14 @@ h1 {
 }
 
 .search-input{
+  background-color: #E4E8EB;
   grid-row: 3 / 4;
   grid-column: 2 / 3;
   height: 1.75em;
   margin: 0;
   padding: 0;
+  box-shadow: none;
+  outline: none;
 }
 
 .my-pantry-button,
