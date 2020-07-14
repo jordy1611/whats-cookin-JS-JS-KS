@@ -8,7 +8,7 @@
 // const User = require('./User');
 // const Pantry = require('./Pantry');
 // const searchInput = document.querySelector('.search-input');
-const cardsBodySection = document.querySelector('.cards-body'); // see if we can create this in a function
+const cardsBodySection = document.querySelector('.cards-body'); // can go in line 60.5
 console.log('Hello World');
 
 // const allRecipes = generateRecipes(recipeData);
@@ -29,18 +29,24 @@ function clickHandler(event) {
   }
 }
 
-const displayRecipesPage = () => {
+const displayRecipesPage = () => { //change to es5?
   displayElement('cards-body');
   displayElement('my-pantry-button');
   hideElement('pantry-body');
-  hideElement('recipes-button')
+  hideElement('recipes-button');
+  updatePageHeader('Recipes')
 }
 
-const displayPantryPage = () => {
+const displayPantryPage = () => { //change to es5?
   displayElement('pantry-body');
   displayElement('recipes-button');
   hideElement('cards-body');
   hideElement('my-pantry-button');
+  updatePageHeader('My Pantry');
+}
+
+function updatePageHeader(pageTitle) {
+  document.querySelector('.pageTitle').innerText = pageTitle
 }
 
 function displayElement(className) {
@@ -51,46 +57,65 @@ function hideElement(className) {
 }
 
 function onLoad() {
-  const allRecipes = generateRecipes(recipeData);
-  displayRecipeCards(allRecipes);
+  const allRecipes = generateRecipes(recipeData); //randomize recipes?
+  displayRecipeCards(allRecipes, cardsBodySection);
   randomizeUser();
 }
 
-function displayRecipeCards(recipeArray) { //image might have quotes already around it
+function displayRecipeCards(recipeArray, cardsSection) { //randomize?
   recipeArray.forEach(function(recipe) {
     const card = `
     <article class="recipe-card">
-      <div class="hidden-card">
-        blah blah blah blah </br>
-        blah blah blah blah blah </br>
-        blah blah blah blah </br>
-        blah blah blah blah blah </br>
-        blah blah blah blah </br>
-        blah blah blah blah blah </br>
-        blah blah blah blah </br>
-        blah blah blah blah blah </br>
-        blah blah blah blah </br>
-        blah blah blah blah blah </br>
-        blah blah blah blah </br>
-        blah blah blah blah blah </br>
-      </div>
+      <section class="hidden-card">
+      </section>
       <section class="displayed-card">
         <img class="recipe-img" src=${recipe.image}>
         <p class="recipe-name">${recipe.name}</p>
-        <img class="delete-white" src="../assets/star.svg" alt="White Delete Icon">
       </section>
     </article>`;
-    cardsBodySection.insertAdjacentHTML('afterbegin', card);
+    cardsSection.insertAdjacentHTML('afterbegin', card);
+
+    displayHiddenIngredients(recipe.ingredients, recipe);
+    // recipe.ingredients.forEach(function(ingredient) {
+    //   ingredient = `${recipe.getIngredientName(ingredient)}:
+    //   ${ingredient.quantity.amount.toFixed(2)}
+    //   ${ingredient.quantity.unit}</br>`
+    //   updateHiddenCard(ingredient);
+    // });
+    displayHiddenInstructions(recipe)
+    // recipe.instructions.forEach(function(instruction) {
+    //   instruction = `${instruction.number}.
+    //   ${instruction.instruction}</br>`
+    //   updateHiddenCard(instruction);
+    // });
   })
 }
-//helper functions
 
+function displayHiddenIngredients(ingredientsArray, recipe) {
+  ingredientsArray.forEach(function(ingredient) {
+    ingredient = `${recipe.getIngredientName(ingredient)}:
+    ${ingredient.quantity.amount.toFixed(2)}
+    ${ingredient.quantity.unit}</br>`
+    updateHiddenCard(ingredient);
+  });
+}
+
+function displayHiddenInstructions(recipe) {
+  recipe.instructions.forEach(function(instruction) {
+    instruction = `${instruction.number}.
+    ${instruction.instruction}</br>`
+    updateHiddenCard(instruction);
+  });
+}
+
+function updateHiddenCard(item) {
+  document.querySelector('.hidden-card').insertAdjacentHTML('beforeend', item)
+}
 // can be tested - should generate array of all recipes on load
 function generateRecipes(recipesInfo) {
   return recipesInfo.map(recipeInfo => new Recipe(recipeInfo));
 }
 
-<<<<<<< HEAD
 function randomizeUser() {
   let randomIndex = Math.floor(Math.random() * usersData.length);
   let randomUser = usersData[randomIndex];
@@ -120,5 +145,3 @@ function randomizeUser() {
 //   })
 //   return searchedRecipes;
 // }
-=======
->>>>>>> 609c7f434be3d12a4750121d049a1890bcd54863
