@@ -1,4 +1,4 @@
-// let ingredientsInfo = require('../data/ingredients');
+// let ingredientsData = require('../data/ingredients');
 
 class User {
   constructor({name, id, pantry}) {
@@ -48,21 +48,24 @@ class User {
       if (ingredient.name.includes(input)) {
         acc.push(ingredient.id)
       }
-
       return acc
     }, [])
     let searchedRecipes = this.favoriteRecipes.filter(recipe => {
-      var recipeIng = recipe.ingredients.filter(ingredient => {
+      console.log("HERE")
+      let recipeIng = recipe.ingredients.filter(ingredient => {
         return searchedIngriedients.includes(ingredient.id)
       })
-      console.log(recipe.name, recipeIng)
+      console.log('NAMES', recipe.name.includes(input))
       if (recipe.name.includes(input) || recipeIng.length > 0) {
+
         return recipe
       }
     })
     return searchedRecipes;
   }
 }
+
+
 
 
 
