@@ -1,7 +1,5 @@
 // let ingredientsInfo = require('../data/ingredients');
 
-
-
 class User {
   constructor({name, id, pantry}) {
     this.name = name;

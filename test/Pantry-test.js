@@ -8,6 +8,9 @@ const Recipe = require('../src/Recipe');
 describe('Pantry', () => {
   let userPantry;
   let user;
+  let ingredientsInfo;
+  let recipe1;
+  let recipe2;
   
   beforeEach(function () {
     user = new User(
@@ -78,6 +81,7 @@ describe('Pantry', () => {
           "hor d'oeuvre"
         ]
       });
+
     recipe2 = new Recipe(
       {
         "id": 595736,
@@ -123,9 +127,35 @@ describe('Pantry', () => {
           "hor d'oeuvre"
         ]
       })
+
+    ingredientsInfo = [{
+      "id": 20,
+      "name": "olive oil",
+      "estimatedCostInCents": 124
+    },
+    {
+      "id": 1,
+      "name": "egg",
+      "estimatedCostInCents": 60
+    },
+    {
+      "id": 289,
+      "name": "nuts",
+      "estimatedCostInCents": 978
+    },
+    {
+      "id": 56,
+      "name": "mustard",
+      "estimatedCostInCents": 98
+    },
+    {
+      "id": 99,
+      "name": "mayo",
+      "estimatedCostInCents": 199
+    }];
     user.addRecipeToCook(recipe2);
     userPantry = new Pantry(user);
-    newIngredient = {name: 'lettuce', id: 88};
+    
   });
 
   it('should be a function', () => {
