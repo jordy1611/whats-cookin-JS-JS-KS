@@ -9,6 +9,7 @@
 // const Pantry = require('./Pantry');
 // const searchInput = document.querySelector('.search-input');
 const cardsBodySection = document.querySelector('.cards-body'); // see if we can create this in a function
+const pantryBodySection = document.querySelector('.pantry-body');
 const pantryListSection = document.querySelector('.user-pantry');
 const missingIngredientsList = document.querySelector('.missing-ingredients');
 console.log('Hello World');
@@ -45,6 +46,9 @@ const displayPantryPage = () => { //change to es5?
   hideElement('cards-body');
   hideElement('my-pantry-button');
   updatePageHeader('My Pantry');
+  displayRecipeCards(user.favoriteRecipes, pantryBodySection);
+  displayPantryIngredients(user.pantry , pantryListSection, 'Pantry');
+  displayPantryIngredients(user.pantry, missingIngredientsList, 'Missing Ingredients');
 }
 
 function updatePageHeader(pageTitle) {
@@ -125,11 +129,15 @@ function randomizeUser() {
   user = new User(randomUser.name, randomUser.id, randomUser.pantry);
 }
 
-function displayMissingIngredients(listArray, listSection) { 
-  listArray.forEach(function (item) {
+function displayPantryIngredients(listArray) { 
+  listArray.forEach(function(item) {
     const card = `
-        <div class="ingredient">${item.name, item.amount, item.unit}</div>`;
-    listSection.insertAdjacentHTML('afterbegin', card);
+    <article class="user-pantry">
+        <h3>Pantry</h3>
+        <div class="ingredient">${item.name, item.amount.toFixed(2), item.unit}</div>
+      </article>
+    `
+    pantryListSection.insertAdjacentHTML('afterbegin', card);
   })
 }
 // function searchRecipes(input) {
