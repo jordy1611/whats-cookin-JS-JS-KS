@@ -25,13 +25,17 @@ h1 {
 }
 
 .user-profile-display {
+  color: #E4E8EB;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 500;
   grid-row: 1 / 2;
   grid-column-end: 4;
-  width: 7em;
+  padding-top: 7px;
+  width: 16em;
   height: 2em;
   text-align: center;
   justify-self: end;
-  background-color: #c98e1e;
 }
 
 .search-input{
@@ -110,13 +114,13 @@ h2 {
   z-index: 2;
   opacity: 0;
   transition: all .6s ease-in-out;
-  margin: -3em 0 0 -2em;
+  margin: 2em 0 0 -2em;
   line-height: 1.2em;
 }
 
 .recipe-card > .hidden-card:hover {
   opacity: .85;
-   transform: scale(1.0)
+   transform: scale(1)
 }
 
 .user-pantry,
@@ -143,12 +147,15 @@ h2 {
 }
 
 .white-star {
-width: 3em;
-height: 3em;
+width: 4em;
+height: 4em;
 grid-area: a;
 z-index: 1;
 }
 
 .red-star {
-  height: 50px;
+  width: 4em;
+  height: 4em;
+  grid-area: a;
+  z-index: 1;
 }
