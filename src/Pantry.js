@@ -6,7 +6,7 @@ class Pantry {
     this.pantryDisplay = [];
   }
 
-  checkPantry(recipe) {
+  checkPantry(recipe, ingredientsArray) {
     let hasIngredients;
     const pantryIngredients = this.pantry.reduce((acc, element) => {
       return {...acc, [element.ingredient] : element.amount};
@@ -28,13 +28,13 @@ class Pantry {
 
   addToShoppingList(ingredient, recipe) {
     this.shoppingList.push(this.ingredientDisplay(ingredient, recipe));
-  };
+  }
 
   addToPantryDisplay(ingredient, recipe) {
     this.pantryDisplay.push(this.ingredientDisplay(ingredient, recipe));
   }
 
-  ingredientDisplay(ingredient, recipe){
+  ingredientDisplay(ingredient, recipe) {
     let updateDisplayItem = {
       id: ingredient.id,
       name: recipe.getIngredientName(ingredient),
@@ -42,28 +42,36 @@ class Pantry {
     }
     return updateDisplayItem;
   }
-    
+  
   pantryIngredientAdjust(recipe) {
-    const recipeIngredients = recipe.ingredients.map(ingredient => ({ id: ingredient.id, amount: ingredient.quantity.amount }));
-
-    const pantryIngredients = this.pantry.map(userIngredient => ({ id: userIngredient.ingredient, amount: userIngredient.amount }));
-
-    for (let i = 0; i < recipe.ingredients; i++) {
-      for (let y = 0; y < this.pantry; y++) {
-        if (recipe.ingredient[i].id === this.pantry[y].ingredient) {
-          this.pantry[y].amount -= recipe.ingredient[i].quantity.amount;
-          if (this.pantry[y].amount < 0) {
-            this.pantry[y].amount *= (- 1);
-            this.addToShoppingList(this.pantry[y]);
-            this.pantry.splice([y], 1);
-          }
-        }
-      }
-    }
+    recipe.ingredients.forEach(item => {
+       let pantry = this.pantry.filter(ingredient => ingredient === item.id);
+       pantry.amount -= item.quantity.amount;
+       if (pantry.amount < 0) {
+         pantry.amount *= (-1);
+         this.addToShoppingList(pantry);
+         this.removeFromPantry(recipe);
+       }
+    })
   }
 
+  //   for (let i = 0; i < recipe.ingredients; i++) {
+  //     for (let y = 0; y < this.pantry; y++) {
+  //       if (recipe.ingredient[i].id === this.pantry[y].ingredient) {
+  //         this.pantry[y].amount -= recipe.ingredient[i].quantity.amount;
+  //         if (this.pantry[y].amount < 0) {
+  //           this.pantry[y].amount *= (- 1);
+  //           this.addToShoppingList.push(this.pantry[y]);
+  //           this.pantry.splice([y], 1);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
   removeFromPantry(recipe) {
-   
+    let index = this.pantry.ingredient.indexOf(recipe.ingredient.id);
+    this.pantry.splice(index, 1);
   }
 
   addToPantry(ingredient, quantity, unit) {

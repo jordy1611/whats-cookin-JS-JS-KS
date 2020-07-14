@@ -1,9 +1,10 @@
 const chai = require('chai');
 const expect = chai.expect;
-
+const ingredientsData = require('../data/ingredients');
 const Pantry = require('../src/Pantry');
 const User = require('../src/User');
 const Recipe = require('../src/Recipe');
+
 
 describe('Pantry', () => {
   let userPantry;
@@ -155,7 +156,7 @@ describe('Pantry', () => {
     }];
     user.addRecipeToCook(recipe2);
     userPantry = new Pantry(user);
-    
+    newIngredient = ingredientsInfo[1];
   });
 
   it('should be a function', () => {
@@ -193,16 +194,19 @@ describe('Pantry', () => {
   it('should list additional ingredients user needs to make recipe', () => {
     userPantry.checkPantry(recipe2);
     expect(userPantry.shoppingList).to.be.an('array').with.a.lengthOf(3);
-    console.log(userPantry.shoppingList);
   });
 
   // it.skip('should check if pantry ingrendient amount is enough to make recipe for each ingredient'{
 
   // });
 
-  // it.skip('should adjust recipe ammount if pantry has some ingredient but not enough' {
+  it('should adjust recipe ammount if pantry has some ingredient but not enough', () => {
+    userPantry.pantryIngredientAdjust(recipe1);
+    expect(userPantry.pantry).to.be.an('array').with.a.lengthOf(4);
+    console.log(userPantry.shoppingList);
+    console.log(userPantry.pantry);
 
-  // });
+  });
 
   // it.skip('should adjust pantry if recipe is cooked and reduce pantry.ingredient.amount appropriatlly'{
 
