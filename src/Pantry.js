@@ -46,7 +46,7 @@ class Pantry {
   pantryIngredientAdjust(recipe) {
     recipe.ingredients.forEach(item => {
        let pantry = this.pantry.filter(ingredient => ingredient === item.id);
-       pantry.amount -= item.quantity.amount;
+        pantry.amount -= item.quantity.amount;
        if (pantry.amount < 0) {
          pantry.amount *= (-1);
          this.addToShoppingList(pantry);
@@ -88,7 +88,6 @@ class Pantry {
     return this.pantry;
   }
 }
-
 
 if (typeof module !== 'undefined') {
   module.exports = Pantry;

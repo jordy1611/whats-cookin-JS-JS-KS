@@ -47,8 +47,6 @@ const displayPantryPage = () => { //change to es5?
   hideElement('my-pantry-button');
   updatePageHeader('My Pantry');
   displayRecipeCards(user.favoriteRecipes, pantryBodySection);
-  displayPantryIngredients(user.pantry , pantryListSection, 'Pantry');
-  displayPantryIngredients(user.pantry, missingIngredientsList, 'Missing Ingredients');
 }
 
 function updatePageHeader(pageTitle) {
@@ -129,7 +127,7 @@ function randomizeUser() {
   user = new User(randomUser.name, randomUser.id, randomUser.pantry);
 }
 
-function displayPantryIngredients(listArray) { 
+function displayPantryIngredients() { 
   listArray.forEach(function(item) {
     const card = `
     <article class="user-pantry">
