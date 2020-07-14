@@ -66,6 +66,7 @@ function displayRecipeCards(recipeArray, cardsSection) { //randomize?
   recipeArray.forEach(function(recipe) {
     const card = `
     <article class="recipe-card">
+    <img class="white-star" src="../assets/star.svg">
       <section class="hidden-card">
       </section>
       <section class="displayed-card">
@@ -122,26 +123,3 @@ function randomizeUser() {
   console.log("USER", randomUser)
   user = new User(randomUser.name, randomUser.id, randomUser.pantry);
 }
-
-// function searchRecipes(input) {
-//   // let ingredients = this.filterIngredientData()
-//   let ingredients = user.filterIngredientData();
-//   let searchedIngriedients = ingredients.reduce((acc, ingredient) => {
-//     if (ingredient.name.includes(input)) {
-//     acc.push(ingredient.id)
-//     }
-//
-//     return acc
-//   }, [])
-//   let searchedRecipes = user.favoriteRecipes.filter(recipe => {
-//     console.log("SEARCH", searchedRecipes)
-//     var recipeIng = recipe.ingredients.filter(ingredient => {
-//       return searchedIngriedients.includes(ingredient.id)
-//     })
-//     console.log(recipe.name, recipeIng)
-//     if(recipe.name.includes(input) || recipeIng.length > 0) {
-//       return recipe
-//     }
-//   })
-//   return searchedRecipes;
-// }
