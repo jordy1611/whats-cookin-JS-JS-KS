@@ -16,11 +16,21 @@ console.log('Hello World');
 // const shoppingList;
 
 //eventListeners
-window.addEventListener('click', clickHandler);
 window.addEventListener('load', onLoad);
+window.addEventListener('click', clickHandler);
+window.addEventListener('dblclick', updateRecipesToCook)
 searchInput.addEventListener('input', showInputFinder);
 
+
 //eventHandlers
+
+function onLoad() {
+  randomizeUser();
+  const allRecipes = generateRecipes(recipeData); //randomize recipes?
+  displayRecipeCards(allRecipes, 'cards-body');
+  displayUserPantry();
+//  userRecipes = generateRecipes(user.favoriteRecipes);
+}
 
 function clickHandler(event) {
   if (event.target.classList.contains('recipes-button')) {
@@ -28,13 +38,19 @@ function clickHandler(event) {
   } else if (event.target.classList.contains('my-pantry-button')) {
     displayPantryPage();
   } else if (event.target.classList.contains('white-star')) {
-    addUserFavorite(event);
+    addUserFavorite(event); //turn into helper function
     event.target.classList.add('red-star')
     event.target.classList.remove('white-star')
+    userRecipes = generateRecipes(user.favoriteRecipes);
+    displayRecipeCards(userRecipes, 'pantry-body');
+    displayUserPantry();
   } else if (event.target.classList.contains('red-star')) {
-    removeUserFavorite(event)
+    removeUserFavorite(event) //turn into helper function
     event.target.classList.add('white-star')
     event.target.classList.remove('red-star')
+    userRecipes = generateRecipes(user.favoriteRecipes);
+    displayRecipeCards(userRecipes, 'pantry-body');
+    displayUserPantry();
   }
 }
 
@@ -56,8 +72,6 @@ const displayPantryPage = () => { //change to es5?
   updatePageHeader('My Pantry');
 }
 
-
-
 function updatePageHeader(pageTitle) {
   document.querySelector('.pageTitle').innerText = pageTitle
 }
@@ -69,63 +83,89 @@ function hideElement(className) {
   document.querySelector(`.${className}`).classList.add('hidden');
 }
 
-function onLoad() {
-  const allRecipes = generateRecipes(recipeData); //randomize recipes?
-  displayRecipeCards(allRecipes);
-  randomizeUser();
-}
 
-function displayRecipeCards(recipeArray) { //randomize?
-  console.log("RECIPE", recipeArray)
+function displayRecipeCards(recipeArray, className) {
+  //rename or put inside another function alongside displayUserPantry
+  const cardSection = document.querySelector(`.${className}`);
+  cardSection.innerHTML = '';
   recipeArray.forEach(function(recipe) {
     const card = `
     <article class="recipe-card" data-id="${recipe.id}">
     <img class="white-star" src="../assets/star.svg">
     <img class="red-star hidden" src="../assets/star-active.svg">
-      <section class="hidden-card">
+      <section class="hidden-card-${className}">
       </section>
       <section class="displayed-card">
         <img class="recipe-img" src=${recipe.image}>
         <p class="recipe-name">${recipe.name}</p>
       </section>
     </article>`;
-    cardsBodySection.insertAdjacentHTML('afterbegin', card);
+    cardSection.insertAdjacentHTML('afterbegin', card);
+    // document.querySelector(`.hidden-card-${className}`).innerHTML = ""; // query also in line 132
+    //cardsBodySection.insertAdjacentHTML('afterbegin', card);
+    //console.log('before');
+    displayHiddenIngredients(recipe, className); //refactor
+    //console.log('after');
+    displayHiddenInstructions(recipe, className);
 
-    displayHiddenIngredients(recipe.ingredients, recipe);
-    // recipe.ingredients.forEach(function(ingredient) {
-    //   ingredient = `${recipe.getIngredientName(ingredient)}:
-    //   ${ingredient.quantity.amount.toFixed(2)}
-    //   ${ingredient.quantity.unit}</br>`
-    //   updateHiddenCard(ingredient);
-    // });
-    displayHiddenInstructions(recipe)
-    // recipe.instructions.forEach(function(instruction) {
-    //   instruction = `${instruction.number}.
-    //   ${instruction.instruction}</br>`
-    //   updateHiddenCard(instruction);
-    // });
   })
 }
 
-function displayHiddenIngredients(ingredientsArray, recipe) {
-  ingredientsArray.forEach(function(ingredient) {
-    ingredient = `${recipe.getIngredientName(ingredient)}:
+function displayUserPantry() {
+  const pantry = `
+  <article class="user-pantry">
+    <h3>Pantry</h3>
+    <div class="ingredient">flour...     ...3cups</div>
+    <div class="ingredient">flour...     ...3cups</div>
+    <div class="ingredient">flour...     ...3cups</div>
+    <div class="ingredient">flour...     ...3cups</div>
+  </article>
+  <article class="missing-ingredients">
+    <h3>Missing Ingredients</h3>
+    <div class="ingredient">not flour...     ...2cups</div>
+    <div class="ingredient">not flour...     ...2cups</div>
+    <div class="ingredient">not flour...     ...2cups</div>
+    <div class="ingredient">not flour...     ...2cups</div>
+  </article>
+  `
+  document.querySelector('.pantry-body').insertAdjacentHTML('afterbegin', pantry)
+}
+
+function displayHiddenIngredients(recipe, className) {
+  //console.log('recipe input', recipe) // recipe is correct her
+  recipe.ingredients.forEach(function(ingredient) {
+    //error here when nothing is passed through?
+    ingredient = `${getIngredientName(ingredient)}:
     ${ingredient.quantity.amount.toFixed(2)}
     ${ingredient.quantity.unit}</br>`
-    updateHiddenCard(ingredient);
+    updateHiddenCard(ingredient, className);
   });
 }
 
-function displayHiddenInstructions(recipe) {
+function getIngredientName(ingredient) {
+  //returns name of ingredient
+  // use .find like in checkForIngredient
+  let name;
+  ingredientsData.forEach(ingredientData => {
+    if (ingredient.id === ingredientData.id) {
+      name = ingredientData.name;
+    }
+  })
+  return name;
+}
+
+function displayHiddenInstructions(recipe, className) {
   recipe.instructions.forEach(function(instruction) {
     instruction = `${instruction.number}.
     ${instruction.instruction}</br>`
-    updateHiddenCard(instruction);
+    updateHiddenCard(instruction, className);
   });
 }
 
-function updateHiddenCard(item) {
-  document.querySelector('.hidden-card').insertAdjacentHTML('beforeend', item)
+function updateHiddenCard(item, className) {
+  console.log(item);
+  // document.querySelector('.hidden-card').innerHTML = "";
+  document.querySelector(`.hidden-card-${className}`).insertAdjacentHTML('beforeend', item)
 }
 // can be tested - should generate array of all recipes on load
 function generateRecipes(recipesInfo) {
@@ -134,22 +174,22 @@ function generateRecipes(recipesInfo) {
 
 function randomizeUser() {
   let randomIndex = Math.floor(Math.random() * usersData.length);
-  let randomUser = usersData[randomIndex];
-  user = new User(randomUser.name, randomUser.id, randomUser.pantry);
+  //let randomUser = usersData[randomIndex];
+  user = new User(usersData[randomIndex]);
   let greeting = document.querySelector('.user-profile-display');
-  greeting.innerHTML = `Welcome, ${randomUser.name}!`
-  return user;
+  greeting.innerHTML = `Welcome, ${user.name}!`
+  //return user;
 }
 
 var testVar;
 
-function showInputFinder(event) {
+function showInputFinder(event) { //updated parameters in displayRecipeCards
 
   var searchBarInput = event.target.value;
   var foundRecipes = user.searchRecipeByName(searchBarInput);
-  console.log(searchBarInput)
-  console.log(foundRecipes)
-  displayRecipeCards(foundRecipes)
+  //console.log(searchBarInput)
+//   console.log(foundRecipes)
+  displayRecipeCards(foundRecipes, 'pantry-body');
   testVar = foundRecipes
 }
 
@@ -157,20 +197,22 @@ function addUserFavorite(event) {
   let card = event.target.closest('.recipe-card')
   recipeData.forEach(recipe => {
     if(recipe.id === parseInt(card.dataset.id)) {
-      console.log("REC", recipe)
       user.favoriteRecipes.push(recipe)
     }
+    //console.log(recipe);
   })
-  console.log(user.favoriteRecipes)
+  // console.log('innerHTML', `${event.target.innerHTML}`)
 }
 
 function removeUserFavorite(event) {
   let card = event.target.closest('.recipe-card')
   user.favoriteRecipes.forEach((recipe, index) => {
     if(recipe.id === parseInt(card.dataset.id)) {
-      console.log("OUT", recipe)
       user.favoriteRecipes.splice(index, 1)
     }
   })
-  console.log(user.favoriteRecipes)
+}
+
+function updateRecipesToCook() {
+  console.log('dubs click');
 }

@@ -108,7 +108,8 @@ h2 {
   color: #3F5330
 }
 
-.hidden-card {
+.hidden-card-cards-body,
+.hidden-card-pantry-body {
   background-color: #FA8A42;
   grid-area: a;
   /* align-self: start;
@@ -124,7 +125,7 @@ h2 {
   line-height: 1.2em;
 }
 
-.recipe-card > .hidden-card:hover {
+.recipe-card > .hidden-card-cards-body:hover, .hidden-card-pantry-body:hover  {
   opacity: .85;
    transform: scale(1)
 }
