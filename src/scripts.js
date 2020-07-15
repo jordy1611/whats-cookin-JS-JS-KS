@@ -10,8 +10,6 @@
 const userPantrySection = document.querySelector('.user-pantry');
 const searchInput = document.querySelector('.search-input');
 const cardsBodySection = document.querySelector('.cards-body'); // can go in line 60.5
-console.log('Hello World');
-
 // const allRecipes = generateRecipes(recipeData);
 // const userRecipes = generateRecipeCards();
 // const shoppingList;
@@ -44,16 +42,16 @@ function clickHandler(event) {
     event.target.classList.add('red-star')
     event.target.classList.remove('white-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
-    displayRecipeCards(userRecipes, 'pantry-body');
-    displayUserPantry();
+    displayRecipeCards(userRecipes, 'user-recipes');
+    // displayUserPantry();
   } else if (event.target.classList.contains('red-star')) {
     removeUserFavorite(event) //turn into helper function
     event.target.src = "../assets/star.svg";
     event.target.classList.add('white-star')
     event.target.classList.remove('red-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
-    displayRecipeCards(userRecipes, 'pantry-body');
-    displayUserPantry();
+    displayRecipeCards(userRecipes, 'user-recipes');
+    // displayUserPantry();
   }
 }
 
@@ -109,9 +107,9 @@ function displayRecipeCards(recipeArray, className) {
     cardSection.insertAdjacentHTML('afterbegin', card);
     // document.querySelector(`.hidden-card-${className}`).innerHTML = ""; // query also in line 132
     //cardsBodySection.insertAdjacentHTML('afterbegin', card);
-    //console.log('before');
+
     displayHiddenIngredients(recipe, className); //refactor
-    //console.log('after');
+
     displayHiddenInstructions(recipe, className);
 
   })
@@ -131,7 +129,7 @@ const itemNameById = (itemId, ingredientsArray) => {
   ingredientsArray.forEach(ingredient => {
     if (ingredient.id === itemId) {
       name = ingredient.name
-    } 
+    }
   })
   return name;
 }
@@ -147,42 +145,76 @@ function displayUserPantry() {
   const pantry = `
   <article class="user-pantry">
     <h3>Pantry</h3>
-    <div class="ingredient">flour...     ...3cups</div>
-    <div class="ingredient">flour...     ...3cups</div>
-    <div class="ingredient">flour...     ...3cups</div>
-    <div class="ingredient">flour...     ...3cups</div>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+    <p>HELLO</p>
+
+
+
   </article>
-  <article class="missing-ingredients">
-    <h3>Missing Ingredients</h3>
-    <div class="ingredient">not flour...     ...2cups</div>
-    <div class="ingredient">not flour...     ...2cups</div>
-    <div class="ingredient">not flour...     ...2cups</div>
-    <div class="ingredient">not flour...     ...2cups</div>
-  </article>
+
   `
   document.querySelector('.pantry-body').insertAdjacentHTML('afterbegin', pantry)
 }
 
-function displayHiddenIngredients(ingredientsArray, recipe) {
-  ingredientsArray.forEach(function(ingredient) {
-    ingredient = `${recipe.getIngredientName(ingredient)}:
+function displayHiddenIngredients(recipe, className) {
+  recipe.ingredients.forEach(function(ingredient) {
+    ingredient = `${getIngredientName(ingredient)}:
     ${ingredient.quantity.amount.toFixed(2)}
     ${ingredient.quantity.unit}</br>`
     updateHiddenCard(ingredient, className);
   });
 }
 
-// function getIngredientName(ingredient) {
-//   //returns name of ingredient
-//   // use .find like in checkForIngredient
-//   let name;
-//   ingredientsData.forEach(ingredientData => {
-//     if (ingredient.id === ingredientData.id) {
-//       name = ingredientData.name;
-//     }
-//   })
-//   return name;
-// }
+function getIngredientName(ingredient) {
+  //returns name of ingredient
+  // use .find like in checkForIngredient
+  let name;
+  ingredientsData.forEach(ingredientData => {
+    if (ingredient.id === ingredientData.id) {
+      name = ingredientData.name;
+    }
+  })
+  return name;
+}
 
 function displayHiddenInstructions(recipe, className) {
   recipe.instructions.forEach(function(instruction) {
@@ -193,7 +225,7 @@ function displayHiddenInstructions(recipe, className) {
 }
 
 function updateHiddenCard(item, className) {
-  console.log(item);
+
   // document.querySelector('.hidden-card').innerHTML = "";
   document.querySelector(`.hidden-card-${className}`).insertAdjacentHTML('beforeend', item)
 }
@@ -216,9 +248,8 @@ function showInputFinder(event) { //updated parameters in displayRecipeCards
 
   var searchBarInput = event.target.value;
   var foundRecipes = user.searchRecipeByName(searchBarInput);
-  //console.log(searchBarInput)
-//   console.log(foundRecipes)
-  displayRecipeCards(foundRecipes, 'pantry-body');
+
+  displayRecipeCards(foundRecipes, 'user-recipes');
   testVar = foundRecipes
 }
 
@@ -228,9 +259,9 @@ function addUserFavorite(event) {
     if(recipe.id === parseInt(card.dataset.id)) {
       user.favoriteRecipes.push(recipe)
     }
-    //console.log(recipe);
+
   })
-  // console.log('innerHTML', `${event.target.innerHTML}`)
+
 }
 
 function removeUserFavorite(event) {
@@ -243,5 +274,5 @@ function removeUserFavorite(event) {
 }
 
 function updateRecipesToCook() {
-  console.log('dubs click');
+
 }
