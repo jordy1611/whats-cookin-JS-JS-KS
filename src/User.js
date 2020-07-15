@@ -72,12 +72,7 @@ class User {
 
 
 
-// showInputFinder() {
-//   var input = searchbar.value;
-//   var foundRecipes = searchFavoriteRecipes(searchBarInput);
-//   updatePageHtml(foundRecipes);
 
-//DOM manipulation for later down the road
 
 
 
