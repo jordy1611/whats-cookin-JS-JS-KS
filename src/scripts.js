@@ -27,7 +27,6 @@ function onLoad() {
   randomizeUser();
   const allRecipes = generateRecipes(recipeData); //randomize recipes?
   displayRecipeCards(allRecipes, 'cards-body');
-  displayUserPantry();
 //  userRecipes = generateRecipes(user.favoriteRecipes);
 }
 
@@ -37,19 +36,21 @@ function clickHandler(event) {
   } else if (event.target.classList.contains('my-pantry-button')) {
     displayPantryPage();
   } else if (event.target.classList.contains('white-star')) {
-    addUserFavorite(event); //turn into helper function
+    addUserFavorite(event, user.favoriteRecipes); //turn into helper function
     event.target.src = "../assets/star-active.svg";
     event.target.classList.add('red-star')
     event.target.classList.remove('white-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
+    clearInnerHTML('user-recipes');
     displayRecipeCards(userRecipes, 'user-recipes');
     // displayUserPantry();
   } else if (event.target.classList.contains('red-star')) {
-    removeUserFavorite(event) //turn into helper function
+    removeUserFavorite(event, user.favoriteRecipes); //turn into helper function
     event.target.src = "../assets/star.svg";
     event.target.classList.add('white-star')
     event.target.classList.remove('red-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
+    clearInnerHTML('user-recipes');
     displayRecipeCards(userRecipes, 'user-recipes');
     // displayUserPantry();
   }
@@ -90,8 +91,8 @@ function hideElement(className) {
 
 function displayRecipeCards(recipeArray, className) {
   //rename or put inside another function alongside displayUserPantry
-  const cardSection = document.querySelector(`.${className}`);
-  cardSection.innerHTML = '';
+  // const cardSection = document.querySelector(`.${className}`);
+  // cardSection.innerHTML = '';
   recipeArray.forEach(function(recipe) {
     const card = `
     <article class="recipe-card" data-id="${recipe.id}">
@@ -104,7 +105,7 @@ function displayRecipeCards(recipeArray, className) {
         <p class="recipe-name">${recipe.name}</p>
       </section>
     </article>`;
-    cardSection.insertAdjacentHTML('afterbegin', card);
+    document.querySelector(`.${className}`).insertAdjacentHTML('afterbegin', card);
     // document.querySelector(`.hidden-card-${className}`).innerHTML = ""; // query also in line 132
     //cardsBodySection.insertAdjacentHTML('afterbegin', card);
 
@@ -113,6 +114,10 @@ function displayRecipeCards(recipeArray, className) {
     displayHiddenInstructions(recipe, className);
 
   })
+}
+
+function clearInnerHTML(className) {
+  document.querySelector(`.${className}`).innerHTML = '';
 }
 
 function displayPantryLists(pantry, ingredientsArray) {
@@ -139,60 +144,6 @@ const itemUnitById = (id, recipeArray) => {
     return recipe.filter(ingredient => ingredient.id === id);
   });
   return recipeArray.quantity.unit;
-}
-
-function displayUserPantry() {
-  const pantry = `
-  <article class="user-pantry">
-    <h3>Pantry</h3>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-    <p>HELLO</p>
-
-
-
-  </article>
-
-  `
-  document.querySelector('.pantry-body').insertAdjacentHTML('afterbegin', pantry)
 }
 
 function displayHiddenIngredients(recipe, className) {
@@ -253,26 +204,48 @@ function showInputFinder(event) { //updated parameters in displayRecipeCards
   testVar = foundRecipes
 }
 
-function addUserFavorite(event) {
+function addUserFavorite(event, userArray) {
   let card = event.target.closest('.recipe-card')
   recipeData.forEach(recipe => {
-    if(recipe.id === parseInt(card.dataset.id)) {
-      user.favoriteRecipes.push(recipe)
+    if(recipe.id === parseInt(card.dataset.id) && !userArray.includes(recipe)) {
+      userArray.push(recipe)
     }
 
   })
 
 }
 
-function removeUserFavorite(event) {
+function removeUserFavorite(event, userArray) {
   let card = event.target.closest('.recipe-card')
-  user.favoriteRecipes.forEach((recipe, index) => {
+  userArray.forEach((recipe, index) => {
     if(recipe.id === parseInt(card.dataset.id)) {
-      user.favoriteRecipes.splice(index, 1)
+      userArray.splice(index, 1)
     }
   })
 }
 
-function updateRecipesToCook() {
+function updateRecipesToCook(event) {
+  clearInnerHTML('user-recipes');
+  addUserFavorite(event, user.recipesToCook);
+  displayRecipeCards(userRecipes, 'user-recipes');
+  displayRecipeToCook();
+  }
 
-}
+  function displayRecipeToCook() {
+    // clearInnerHTML('user-recipes');
+    const card = `
+    <article class="recipe-card-to-cook" data-id="${user.recipesToCook[0].id}">
+    <img class="white-star" src="../assets/star.svg">
+    <img class="red-star hidden" src="../assets/star-active.svg">
+      <section class="hidden-card-to-cook">
+      </section>
+      <section class="displayed-card">
+        <img class="recipe-img" src=${user.recipesToCook[0].image}>
+        <p class="recipe-to-cook-name">${user.recipesToCook[0].name}</p>
+        <p class="recipe-to-cook-text">Recipe To Cook</p>
+      </section>
+    </article>`
+    document.querySelector(`.user-recipes`).insertAdjacentHTML('afterbegin', card);
+    displayHiddenIngredients(user.recipesToCook[0], 'to-cook'); //refactor
+    displayHiddenInstructions(user.recipesToCook[0], 'to-cook');
+  }
