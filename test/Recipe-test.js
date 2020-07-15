@@ -49,7 +49,7 @@ describe("Recipe", function () {
     );
     expect(recipeNoId.id).to.equal(0)
   });
-  
+
   it('should have an image link', function() {
     expect(recipe.image).to.equal('https://spoonacular.com/recipeImages/595736-556x370.jpg');
   });
@@ -131,10 +131,10 @@ describe("Recipe", function () {
     expect(recipe.getIngredientCost(ingredient1)).to.equal(1.42);
   });
 
-  it('should return no cost if ingredient has no id', function () {
-    const badIngredient = {"estimatedCostInCents": 205}
-    expect(recipe.getIngredientCost(badIngredient).to.equal(0));
-  });
+  // it('should return no cost if ingredient has no id', function () {
+  //   const badIngredient = {"estimatedCostInCents": 205}
+  //   expect(recipe.getIngredientCost(badIngredient).to.equal(0));
+  // });
 
   //what if no cost
 
@@ -151,10 +151,10 @@ describe("Recipe", function () {
   //   expect(recipe.calculateTotalCost()).to.be.a('number');
   // });
 
-  it('should return its own instructions', function () {
-    expect(recipe.returnInstructions()).to.deep.equal([instruction1, instruction2, instruction3]);
-    expect(recipe.returnInstructions().length).to.equal(3);
-  });
+  // it('should return its own instructions', function () {
+  //   expect(recipe.returnInstructions()).to.deep.equal([instruction1, instruction2, instruction3]);
+  //   expect(recipe.returnInstructions().length).to.equal(3);
+  // });
 
   //what if ingredients are missing?
 
@@ -165,10 +165,10 @@ describe("Recipe", function () {
   //   expect(instructions[0]).to.be.an('object');
   // });
 
-  it('should return its own ingredients', function () {
-    expect(recipe.returnIngredients()).to.deep.equal([ingredient1, ingredient2, ingredient3]);
-    expect(recipe.returnIngredients().length).to.equal(3);
-  });
+  // it('should return its own ingredients', function () {
+  //   expect(recipe.returnIngredients()).to.deep.equal([ingredient1, ingredient2, ingredient3]);
+  //   expect(recipe.returnIngredients().length).to.equal(3);
+  // });
 
   // it('should return its own ingredients as an array of objects', function() {
   //   expect(recipe.returnIngredients()).to.be.an('array');
@@ -177,22 +177,22 @@ describe("Recipe", function () {
   //   expect(ingredients[0]).to.be.an('object');
   // });
 
-  it('should check if it includes a specific ingredient', function() {
-    expect(recipe.checkForIngredient(ingredient1)).to.equal(true);
-  });
-
-  it('should check if it does not include a specific ingredient', function () {
-    const ingredient4 = {"id": 19335, "name": "sucrose", "estimatedCostInCents": 902};
-    expect(recipe.checkForIngredient(ingredient4)).to.equal(false);
-  });
-
-  it('should check if it includes a specific tag', function () {
-    let tag = 'antipasti';
-    expect(recipe.checkForTag(tag)).to.equal(true);
-  });
-
-  it('should check if it does not include a specific tag', function () {
-    let tag = 'salad';
-    expect(recipe.checkForTag(tag)).to.equal(false);
-  });
+  // it('should check if it includes a specific ingredient', function() {
+  //   expect(recipe.checkForIngredient(ingredient1)).to.equal(true);
+  // });
+  //
+  // it('should check if it does not include a specific ingredient', function () {
+  //   const ingredient4 = {"id": 19335, "name": "sucrose", "estimatedCostInCents": 902};
+  //   expect(recipe.checkForIngredient(ingredient4)).to.equal(false);
+  // });
+  //
+  // it('should check if it includes a specific tag', function () {
+  //   let tag = 'antipasti';
+  //   expect(recipe.checkForTag(tag)).to.equal(true);
+  // });
+  //
+  // it('should check if it does not include a specific tag', function () {
+  //   let tag = 'salad';
+  //   expect(recipe.checkForTag(tag)).to.equal(false);
+  // });
 });
