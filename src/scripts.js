@@ -111,8 +111,8 @@ function displayRecipeCards(recipeArray) { //randomize?
 function displayPantryLists(pantry, ingredientsArray) {
   pantry.pantry.forEach(function(item) {
     const list = `
-        <div class="ingredient">Name:${itemNameById(item.ingredient, ingredientsArray)}, Amount:${item.amount}</div>`;
-    userPantrySection.insertAdjacentHTML('afterbegin', list);
+        <li class="ingredient">Name: ${itemNameById(item.ingredient, ingredientsArray)} --- Amount: ${item.amount}</li>`;
+    userPantrySection.insertAdjacentHTML('beforeend', list);
   })
 }
 
@@ -126,7 +126,7 @@ const itemNameById = (itemId, ingredientsArray) => {
   return name;
 }
 
-function itemUnitById(id, recipeArray) {
+const itemUnitById = (id, recipeArray) => {
   recipeArray.forEach(recipe => {
     return recipe.filter(ingredient => ingredient.id === id);
   });
