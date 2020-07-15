@@ -5,8 +5,9 @@
 // const recipes = require('../data/recipes');
 // const users = require('../data/users');
 // const Recipe = require('./Recipe');
-// const User = require('./User');
 
+// const User = require('./User');
+const userShoppingList = document.querySelector('.missing-ingredients');
 const userPantrySection = document.querySelector('.user-pantry');
 const searchInput = document.querySelector('.search-input');
 const cardsBodySection = document.querySelector('.cards-body'); // can go in line 60.5
@@ -28,6 +29,7 @@ function onLoad() {
   randomizeUser();
   const allRecipes = generateRecipes(recipeData); //randomize recipes?
   displayRecipeCards(allRecipes, 'cards-body');
+  displayUserPantry(userPantry, user, ingredientsData);
 //  userRecipes = generateRecipes(user.favoriteRecipes);
 }
 
@@ -35,13 +37,15 @@ function clickHandler(event) {
   if (event.target.classList.contains('recipes-button')) {
     displayRecipesPage();
   } else if (event.target.classList.contains('my-pantry-button')) {
-    displayPantryPage();
+    displayPantryPage(userPantry, user, ingredientsData);
   } else if (event.target.classList.contains('white-star')) {
     addUserFavorite(event, user.favoriteRecipes); //turn into helper function
     event.target.src = "../assets/star-active.svg";
     event.target.classList.add('red-star')
     event.target.classList.remove('white-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
+    displayRecipeCards(userRecipes, 'pantry-body');
+    displayUserPantry(userPantry, user, ingredientsData);
     clearInnerHTML('user-recipes');
     displayRecipeCards(userRecipes, 'user-recipes');
     // displayUserPantry();
@@ -51,13 +55,13 @@ function clickHandler(event) {
     event.target.classList.add('white-star')
     event.target.classList.remove('red-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
+    displayRecipeCards(userRecipes, 'pantry-body');
+    displayUserPantry(userPantry, user, ingredientsData);
     clearInnerHTML('user-recipes');
     displayRecipeCards(userRecipes, 'user-recipes');
     // displayUserPantry();
   }
 }
-
-
 
 const displayRecipesPage = () => { //change to es5?
   displayElement('cards-body');
@@ -75,8 +79,10 @@ const displayPantryPage = () => { //change to es5?
   hideElement('cards-body');
   hideElement('my-pantry-button');
   updatePageHeader('My Pantry');
-  displayPantryLists(userPantry, ingredientsData);
+  displayUserPantry(userPantry, user, ingredientsData);
 }
+
+
 
 function updatePageHeader(pageTitle) {
   document.querySelector('.pageTitle').innerText = pageTitle
@@ -118,11 +124,17 @@ function displayRecipeCards(recipeArray, className) {
   })
 }
 
+function displayUserPantry(pantry, user, ingData) {
+  displayPantryLists(pantry, ingData);
+  displayShoppingLists(pantry, user, ingData);
+}
+
 function clearInnerHTML(className) {
   document.querySelector(`.${className}`).innerHTML = '';
 }
 
 function displayPantryLists(pantry, ingredientsArray) {
+  userPantrySection.innerHTML = '';
   pantry.pantry.forEach(function(item) {
     const list = `
         <li class="ingredient">${itemNameById(item.ingredient, ingredientsArray)}</li>
@@ -131,7 +143,19 @@ function displayPantryLists(pantry, ingredientsArray) {
   })
 }
 
-const itemNameById = (itemId, ingredientsArray) => {
+function displayShoppingLists(pantry, user, ingredientsArray) {
+  if (user.favoriteRecipes.length > 1) {
+    pantry.checkPantry(user.favoriteRecipes[0]);
+    pantry.shoppingList.forEach(function(item) {
+      const list = `
+          <li class="ingredient">${itemNameById(item.ingredient, ingredientsArray)}</li>
+            <li class="amount">Qty: ${item.amount}</li>`;
+      userShoppingList.insertAdjacentHTML('beforeend', list);
+    })
+  }
+}
+
+function itemNameById(itemId, ingredientsArray) {
   let name;
   ingredientsArray.forEach(ingredient => {
     if (ingredient.id === itemId) {
@@ -193,7 +217,6 @@ function randomizeUser() {
   let greeting = document.querySelector('.user-profile-display');
   greeting.innerHTML = `Welcome, ${user.name}!`
   userPantry = new Pantry(user);
-  // return user;
 }
 
 

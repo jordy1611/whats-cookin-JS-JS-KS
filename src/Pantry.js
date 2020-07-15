@@ -3,7 +3,6 @@ class Pantry {
     this.pantry = userObject.pantry;
     this.recipe = userObject.recipesToCook;
     this.shoppingList = [];
-    this.pantryDisplay = [];
   }
 
   checkPantry(recipe) {
@@ -15,10 +14,10 @@ class Pantry {
     recipe.ingredients.forEach(ingredient => {
       if (!pantryIngredients.hasOwnProperty(ingredient.id)) {
         hasIngredients = false;
-        this.addToShoppingList(ingredient, recipe);
+        this.addToShoppingList(ingredient);
       } else if (pantryIngredients[ingredient.id] < ingredient.quantity.amount) {
         hasIngredients = false;
-        this.addToShoppingList(ingredient, recipe);
+        this.addToShoppingList(ingredient);
       } else {
         hasIngredients = true;
       }
@@ -26,22 +25,18 @@ class Pantry {
     return hasIngredients;
   }
 
-  addToShoppingList(ingredient, recipe) {
-    this.shoppingList.push(this.ingredientDisplay(ingredient, recipe));
+  addToShoppingList(ingredient) {
+    this.shoppingList.push(ingredient);
   }
 
-  addToPantryDisplay(ingredient, recipe) {
-    this.pantryDisplay.push(this.ingredientDisplay(ingredient, recipe));
-  }
-
-  ingredientDisplay(ingredient, recipe) {
-    let updateDisplayItem = {
-      id: ingredient.id,
-      name: recipe.getIngredientName(ingredient),
-      amount: ingredient.quantity.amount
-    }
-    return updateDisplayItem;
-  }
+  // ingredientDisplay(ingredient, recipe) {
+  //   let updateDisplayItem = {
+  //     id: ingredient.id,
+  //     amount: ingredient.quantity.amount
+  //   }
+  //   return updateDisplayItem;
+  // }
+  //^^^^^^^^^ Didnt need after changes to user class 
   
   pantryIngredientAdjust(recipe) {
     recipe.ingredients.forEach(item => {
@@ -54,7 +49,6 @@ class Pantry {
        }
     })
   }
-
   //   for (let i = 0; i < recipe.ingredients; i++) {
   //     for (let y = 0; y < this.pantry; y++) {
   //       if (recipe.ingredient[i].id === this.pantry[y].ingredient) {
@@ -73,12 +67,6 @@ class Pantry {
     let index = this.pantry.ingredient.indexOf(recipe.ingredient.id);
     this.pantry.splice(index, 1);
   }
-
-  // addToPantry(ingredient, quantity, unit) {
-  //   const id = ingredient.id
-  //   const pantryItem = {ingredient: id, amount: quantity, unit: unit};
-  //   this.pantry.push(pantryItem);
-  // }
 
   returnShoppingList() {
     return this.shoppingList;
