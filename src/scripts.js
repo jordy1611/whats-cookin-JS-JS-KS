@@ -10,6 +10,7 @@
 const userPantrySection = document.querySelector('.user-pantry');
 const searchInput = document.querySelector('.search-input');
 const cardsBodySection = document.querySelector('.cards-body'); // can go in line 60.5
+userRecipes = [];
 // const allRecipes = generateRecipes(recipeData);
 // const userRecipes = generateRecipeCards();
 // const shoppingList;
@@ -103,6 +104,7 @@ function displayRecipeCards(recipeArray, className) {
       <section class="displayed-card">
         <img class="recipe-img" src=${recipe.image}>
         <p class="recipe-name">${recipe.name}</p>
+        <p class="total-cost">Total Cost: $${recipe.calculateTotalCost().toFixed(2)}</p>
       </section>
     </article>`;
     document.querySelector(`.${className}`).insertAdjacentHTML('afterbegin', card);
@@ -199,20 +201,19 @@ function showInputFinder(event) { //updated parameters in displayRecipeCards
 
   var searchBarInput = event.target.value;
   var foundRecipes = user.searchRecipeByName(searchBarInput);
-
+  clearInnerHTML('user-recipes');
   displayRecipeCards(foundRecipes, 'user-recipes');
   testVar = foundRecipes
 }
 
-function addUserFavorite(event, userArray) {
-  let card = event.target.closest('.recipe-card')
+function addUserFavorite(event, userArray, ) {
+  let card = event.target.closest('.recipe-card-to-cook') ||
+  event.target.closest('.recipe-card')
   recipeData.forEach(recipe => {
     if(recipe.id === parseInt(card.dataset.id) && !userArray.includes(recipe)) {
       userArray.push(recipe)
     }
-
   })
-
 }
 
 function removeUserFavorite(event, userArray) {
@@ -225,6 +226,7 @@ function removeUserFavorite(event, userArray) {
 }
 
 function updateRecipesToCook(event) {
+  //if(!user.recipesToCook.includes())
   clearInnerHTML('user-recipes');
   addUserFavorite(event, user.recipesToCook);
   displayRecipeCards(userRecipes, 'user-recipes');
