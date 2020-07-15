@@ -5,8 +5,9 @@
 // const recipes = require('../data/recipes');
 // const users = require('../data/users');
 // const Recipe = require('./Recipe');
-// const User = require('./User');
 
+// const User = require('./User');
+const userShoppingList = document.querySelector('.missing-ingredients');
 const userPantrySection = document.querySelector('.user-pantry');
 const searchInput = document.querySelector('.search-input');
 const cardsBodySection = document.querySelector('.cards-body'); // can go in line 60.5
@@ -29,7 +30,7 @@ function onLoad() {
   randomizeUser();
   const allRecipes = generateRecipes(recipeData); //randomize recipes?
   displayRecipeCards(allRecipes, 'cards-body');
-  displayUserPantry();
+  displayUserPantry(userPantry, ingredientsData);
 //  userRecipes = generateRecipes(user.favoriteRecipes);
 }
 
@@ -37,7 +38,7 @@ function clickHandler(event) {
   if (event.target.classList.contains('recipes-button')) {
     displayRecipesPage();
   } else if (event.target.classList.contains('my-pantry-button')) {
-    displayPantryPage();
+    displayPantryPage(userPantry, user, ingredientsData);
   } else if (event.target.classList.contains('white-star')) {
     addUserFavorite(event); //turn into helper function
     event.target.src = "../assets/star-active.svg";
@@ -45,7 +46,7 @@ function clickHandler(event) {
     event.target.classList.remove('white-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
     displayRecipeCards(userRecipes, 'pantry-body');
-    displayUserPantry();
+    displayUserPantry(userPantry, user, ingredientsData);
   } else if (event.target.classList.contains('red-star')) {
     removeUserFavorite(event) //turn into helper function
     event.target.src = "../assets/star.svg";
@@ -53,11 +54,9 @@ function clickHandler(event) {
     event.target.classList.remove('red-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
     displayRecipeCards(userRecipes, 'pantry-body');
-    displayUserPantry();
+    displayUserPantry(userPantry, user, ingredientsData);
   }
 }
-
-
 
 const displayRecipesPage = () => { //change to es5?
   displayElement('cards-body');
@@ -75,8 +74,10 @@ const displayPantryPage = () => { //change to es5?
   hideElement('cards-body');
   hideElement('my-pantry-button');
   updatePageHeader('My Pantry');
-  displayPantryLists(userPantry, ingredientsData);
+  displayUserPantry(userPantry, user, ingredientsData);
 }
+
+
 
 function updatePageHeader(pageTitle) {
   document.querySelector('.pageTitle').innerText = pageTitle
@@ -117,7 +118,13 @@ function displayRecipeCards(recipeArray, className) {
   })
 }
 
+function displayUserPantry(pantry, user, ingData) {
+  displayPantryLists(pantry, ingData);
+  displayShoppingLists(pantry, user, ingData);
+}
+
 function displayPantryLists(pantry, ingredientsArray) {
+  userPantrySection.innerHTML = '';
   pantry.pantry.forEach(function(item) {
     const list = `
         <li class="ingredient">${itemNameById(item.ingredient, ingredientsArray)}</li>
@@ -126,7 +133,19 @@ function displayPantryLists(pantry, ingredientsArray) {
   })
 }
 
-const itemNameById = (itemId, ingredientsArray) => {
+function displayShoppingLists(pantry, user, ingredientsArray) {
+  if (pantry.shoppingList > 1) {
+    pantry.checkPantry(user.favoriteRecipes[0]);
+    pantry.shoppingList.forEach(function(item) {
+      const list = `
+          <li class="ingredient">${itemNameById(item.id, ingredientsArray)}</li>
+            <li class="amount">Qty: ${item.amount}</li>`;
+      userShoppingList.insertAdjacentHTML('beforeend', list);
+    })
+  }
+}
+
+function itemNameById(itemId, ingredientsArray) {
   let name;
   ingredientsArray.forEach(ingredient => {
     if (ingredient.id === itemId) {
@@ -136,53 +155,33 @@ const itemNameById = (itemId, ingredientsArray) => {
   return name;
 }
 
-const itemUnitById = (id, recipeArray) => {
-  recipeArray.forEach(recipe => {
-    return recipe.filter(ingredient => ingredient.id === id);
-  });
-  return recipeArray.quantity.unit;
-}
+// const itemUnitById = (id, recipeArray) => {
+//   recipeArray.forEach(recipe => {
+//     return recipe.filter(ingredient => ingredient.id === id);
+//   });
+//   return recipeArray.quantity.unit;
+// }
 
-function displayUserPantry() {
-  const pantry = `
-  <article class="user-pantry">
-    <h3>Pantry</h3>
-    <div class="ingredient">flour...     ...3cups</div>
-    <div class="ingredient">flour...     ...3cups</div>
-    <div class="ingredient">flour...     ...3cups</div>
-    <div class="ingredient">flour...     ...3cups</div>
-  </article>
-  <article class="missing-ingredients">
-    <h3>Missing Ingredients</h3>
-    <div class="ingredient">not flour...     ...2cups</div>
-    <div class="ingredient">not flour...     ...2cups</div>
-    <div class="ingredient">not flour...     ...2cups</div>
-    <div class="ingredient">not flour...     ...2cups</div>
-  </article>
-  `
-  document.querySelector('.pantry-body').insertAdjacentHTML('afterbegin', pantry)
-}
-
-function displayHiddenIngredients(ingredientsArray, recipe) {
-  ingredientsArray.forEach(function(ingredient) {
-    ingredient = `${recipe.getIngredientName(ingredient)}:
+function displayHiddenIngredients(recipe, className) {
+  recipe.ingredients.forEach(function(ingredient) {
+    ingredient = `${getIngredientName(ingredient)}:
     ${ingredient.quantity.amount.toFixed(2)}
     ${ingredient.quantity.unit}</br>`
     updateHiddenCard(ingredient, className);
   });
 }
 
-// function getIngredientName(ingredient) {
-//   //returns name of ingredient
-//   // use .find like in checkForIngredient
-//   let name;
-//   ingredientsData.forEach(ingredientData => {
-//     if (ingredient.id === ingredientData.id) {
-//       name = ingredientData.name;
-//     }
-//   })
-//   return name;
-// }
+function getIngredientName(ingredient) {
+  //returns name of ingredient
+  // use .find like in checkForIngredient
+  let name;
+  ingredientsData.forEach(ingredientData => {
+    if (ingredient.id === ingredientData.id) {
+      name = ingredientData.name;
+    }
+  })
+  return name;
+}
 
 function displayHiddenInstructions(recipe, className) {
   recipe.instructions.forEach(function(instruction) {

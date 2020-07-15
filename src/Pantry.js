@@ -37,7 +37,6 @@ class Pantry {
   ingredientDisplay(ingredient, recipe) {
     let updateDisplayItem = {
       id: ingredient.id,
-      name: recipe.getIngredientName(ingredient),
       amount: ingredient.quantity.amount
     }
     return updateDisplayItem;
