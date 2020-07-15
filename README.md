@@ -9,7 +9,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.pngio.com%2Fchef-cooking-logo-clip-art-cook-free-transparent-png-clipart-cook-png-black-and-white-840_1015.png&f=1&nofb=1" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">What's Cookin</h3>
