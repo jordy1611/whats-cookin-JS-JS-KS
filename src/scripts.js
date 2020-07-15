@@ -18,7 +18,9 @@ console.log('Hello World');
 //eventListeners
 window.addEventListener('click', clickHandler);
 window.addEventListener('load', onLoad);
+window.addEventListener('dblclick', updateRecipesToCook)
 searchInput.addEventListener('input', showInputFinder);
+
 
 //eventHandlers
 
@@ -112,11 +114,24 @@ function displayRecipeCards(recipeArray, className) { //add if statement for pan
 function displayHiddenIngredients(recipe, className) {
   //console.log('recipe input', recipe) // recipe is correct her
   recipe.ingredients.forEach(function(ingredient) {
-    ingredient = `${recipe.getIngredientName(ingredient)}:
+    //error here when nothing is passed through?
+    ingredient = `${getIngredientName(ingredient)}:
     ${ingredient.quantity.amount.toFixed(2)}
     ${ingredient.quantity.unit}</br>`
     updateHiddenCard(ingredient, className);
   });
+}
+
+function getIngredientName(ingredient) {
+  //returns name of ingredient
+  // use .find like in checkForIngredient
+  let name;
+  ingredientsData.forEach(ingredientData => {
+    if (ingredient.id === ingredientData.id) {
+      name = ingredientData.name;
+    }
+  })
+  return name;
 }
 
 function displayHiddenInstructions(recipe, className) {
@@ -148,13 +163,13 @@ function randomizeUser() {
 
 var testVar;
 
-function showInputFinder(event) {
+function showInputFinder(event) { //updated parameters in displayRecipeCards
 
   var searchBarInput = event.target.value;
   var foundRecipes = user.searchRecipeByName(searchBarInput);
   //console.log(searchBarInput)
 //   console.log(foundRecipes)
-  displayRecipeCards(foundRecipes)
+  displayRecipeCards(foundRecipes, 'pantry-body');
   testVar = foundRecipes
 }
 
@@ -176,4 +191,8 @@ function removeUserFavorite(event) {
       user.favoriteRecipes.splice(index, 1)
     }
   })
+}
+
+function updateRecipesToCook() {
+  console.log('dubs click');
 }
