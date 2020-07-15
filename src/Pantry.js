@@ -6,7 +6,7 @@ class Pantry {
     this.pantryDisplay = [];
   }
 
-  checkPantry(recipe, ingredientsArray) {
+  checkPantry(recipe) {
     let hasIngredients;
     const pantryIngredients = this.pantry.reduce((acc, element) => {
       return {...acc, [element.ingredient] : element.amount};
@@ -74,11 +74,11 @@ class Pantry {
     this.pantry.splice(index, 1);
   }
 
-  addToPantry(ingredient, quantity, unit) {
-    const id = ingredient.id
-    const pantryItem = {ingredient: id, amount: quantity, unit: unit};
-    this.pantry.push(pantryItem);
-  }
+  // addToPantry(ingredient, quantity, unit) {
+  //   const id = ingredient.id
+  //   const pantryItem = {ingredient: id, amount: quantity, unit: unit};
+  //   this.pantry.push(pantryItem);
+  // }
 
   returnShoppingList() {
     return this.shoppingList;

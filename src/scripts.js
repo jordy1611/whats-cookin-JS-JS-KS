@@ -1,4 +1,4 @@
-// const ingredientsData = require('../data/ingredients.js');
+// const ingredientsData = require('../data/ingredients');
 // const ingredientsData = require('../data/ingredients.js');
 // const recipesData = require('../data/recipes');
 // const ingredients = require('../data/ingredients');
@@ -6,7 +6,14 @@
 // const users = require('../data/users');
 // const Recipe = require('./Recipe');
 // const User = require('./User');
-// const Pantry = require('./Pantry');
+
+
+
+
+
+
+
+const userPantrySection = document.querySelector('.user-pantry');
 const searchInput = document.querySelector('.search-input');
 const cardsBodySection = document.querySelector('.cards-body'); // can go in line 60.5
 console.log('Hello World');
@@ -19,6 +26,7 @@ console.log('Hello World');
 window.addEventListener('click', clickHandler);
 window.addEventListener('load', onLoad);
 searchInput.addEventListener('input', showInputFinder);
+
 
 //eventHandlers
 
@@ -37,18 +45,18 @@ const displayRecipesPage = () => { //change to es5?
   displayElement('my-pantry-button');
   hideElement('pantry-body');
   hideElement('recipes-button');
-  hideElement('search-input')
-  updatePageHeader('Recipes')
+  hideElement('search-input');
+  updatePageHeader('Recipes');
 }
 
 const displayPantryPage = () => { //change to es5?
   displayElement('pantry-body');
   displayElement('recipes-button');
-  displayElement('search-input')
+  displayElement('search-input');
   hideElement('cards-body');
   hideElement('my-pantry-button');
   updatePageHeader('My Pantry');
-  displayRecipeCards(user.favoriteRecipes, pantryBodySection);
+  displayPantryLists(userPantry, ingredientsData);
 }
 
 function updatePageHeader(pageTitle) {
@@ -100,6 +108,31 @@ function displayRecipeCards(recipeArray) { //randomize?
   })
 }
 
+function displayPantryLists(pantry, ingredientsArray) {
+  pantry.pantry.forEach(function(item) {
+    const list = `
+        <div class="ingredient">Name:${itemNameById(item.ingredient, ingredientsArray)}, Amount:${item.amount}</div>`;
+    userPantrySection.insertAdjacentHTML('afterbegin', list);
+  })
+}
+
+const itemNameById = (itemId, ingredientsArray) => {
+  let name;
+  ingredientsArray.forEach(ingredient => {
+    if (ingredient.id === itemId) {
+      name = ingredient.name
+    } 
+  })
+  return name;
+}
+
+function itemUnitById(id, recipeArray) {
+  recipeArray.forEach(recipe => {
+    return recipe.filter(ingredient => ingredient.id === id);
+  });
+  return recipeArray.quantity.unit;
+}
+
 function displayHiddenIngredients(ingredientsArray, recipe) {
   ingredientsArray.forEach(function(ingredient) {
     ingredient = `${recipe.getIngredientName(ingredient)}:
@@ -127,14 +160,13 @@ function generateRecipes(recipesInfo) {
 
 function randomizeUser() {
   let randomIndex = Math.floor(Math.random() * usersData.length);
-  let randomUser = usersData[randomIndex];
-  user = new User(randomUser.name, randomUser.id, randomUser.pantry);
+  user = new User(usersData[randomIndex]);
   let greeting = document.querySelector('.user-profile-display');
-  greeting.innerHTML = `Welcome, ${randomUser.name}!`
+  greeting.innerHTML = `Welcome, ${user.name}!`
+  userPantry = new Pantry(user);
   return user;
 }
 
-var testVar;
 
 function showInputFinder(event) {
 
@@ -155,5 +187,15 @@ function userFavorite(event) {
     }
   })
   console.log(user.favoriteRecipes)
+}
 
+function removeUserFavorite(event) {
+  let card = event.target.closest('.recipe-card')
+  user.favoriteRecipes.forEach((recipe, index) => {
+    if (recipe.id === parseInt(card.dataset.id)) {
+      console.log("OUT", recipe)
+      user.favoriteRecipes.splice(index, 1)
+    }
+  })
+  console.log(user.favoriteRecipes)
 }
