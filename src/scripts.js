@@ -28,13 +28,19 @@ function clickHandler(event) {
   } else if (event.target.classList.contains('my-pantry-button')) {
     displayPantryPage();
   } else if (event.target.classList.contains('white-star')) {
-    addUserFavorite(event);
+    addUserFavorite(event); //turn into helper function
     event.target.classList.add('red-star')
     event.target.classList.remove('white-star')
+    userRecipes = generateRecipes(user.favoriteRecipes);
+    displayRecipeCards(userRecipes, '.user-recipes')
+    console.log(user.favoriteRecipes);
   } else if (event.target.classList.contains('red-star')) {
-    removeUserFavorite(event)
+    removeUserFavorite(event) //turn into helper function
     event.target.classList.add('white-star')
     event.target.classList.remove('red-star')
+    userRecipes = generateRecipes(user.favoriteRecipes);
+    displayRecipeCards(userRecipes, '.user-recipes')
+    console.log(user.favoriteRecipes);
   }
 }
 
@@ -71,12 +77,14 @@ function hideElement(className) {
 
 function onLoad() {
   const allRecipes = generateRecipes(recipeData); //randomize recipes?
-  displayRecipeCards(allRecipes);
+  displayRecipeCards(allRecipes, '.cards-body');
   randomizeUser();
+//  userRecipes = generateRecipes(user.favoriteRecipes);
 }
 
-function displayRecipeCards(recipeArray) { //randomize?
-  console.log("RECIPE", recipeArray)
+function displayRecipeCards(recipeArray, className) { //add if statement for pantry
+  const cardSection = document.querySelector(className);
+  cardSection.innerHTML = '';
   recipeArray.forEach(function(recipe) {
     const card = `
     <article class="recipe-card" data-id="${recipe.id}">
@@ -89,21 +97,11 @@ function displayRecipeCards(recipeArray) { //randomize?
         <p class="recipe-name">${recipe.name}</p>
       </section>
     </article>`;
-    cardsBodySection.insertAdjacentHTML('afterbegin', card);
 
+    cardSection.insertAdjacentHTML('afterbegin', card);
+    //cardsBodySection.insertAdjacentHTML('afterbegin', card);
     displayHiddenIngredients(recipe.ingredients, recipe);
-    // recipe.ingredients.forEach(function(ingredient) {
-    //   ingredient = `${recipe.getIngredientName(ingredient)}:
-    //   ${ingredient.quantity.amount.toFixed(2)}
-    //   ${ingredient.quantity.unit}</br>`
-    //   updateHiddenCard(ingredient);
-    // });
     displayHiddenInstructions(recipe)
-    // recipe.instructions.forEach(function(instruction) {
-    //   instruction = `${instruction.number}.
-    //   ${instruction.instruction}</br>`
-    //   updateHiddenCard(instruction);
-    // });
   })
 }
 
@@ -112,6 +110,7 @@ function displayHiddenIngredients(ingredientsArray, recipe) {
     ingredient = `${recipe.getIngredientName(ingredient)}:
     ${ingredient.quantity.amount.toFixed(2)}
     ${ingredient.quantity.unit}</br>`
+    console.log(ingredient);
     updateHiddenCard(ingredient);
   });
 }
@@ -134,11 +133,11 @@ function generateRecipes(recipesInfo) {
 
 function randomizeUser() {
   let randomIndex = Math.floor(Math.random() * usersData.length);
-  let randomUser = usersData[randomIndex];
-  user = new User(randomUser.name, randomUser.id, randomUser.pantry);
+  //let randomUser = usersData[randomIndex];
+  user = new User(usersData[randomIndex]);
   let greeting = document.querySelector('.user-profile-display');
-  greeting.innerHTML = `Welcome, ${randomUser.name}!`
-  return user;
+  greeting.innerHTML = `Welcome, ${user.name}!`
+  //return user;
 }
 
 var testVar;
@@ -157,20 +156,16 @@ function addUserFavorite(event) {
   let card = event.target.closest('.recipe-card')
   recipeData.forEach(recipe => {
     if(recipe.id === parseInt(card.dataset.id)) {
-      console.log("REC", recipe)
       user.favoriteRecipes.push(recipe)
     }
   })
-  console.log(user.favoriteRecipes)
 }
 
 function removeUserFavorite(event) {
   let card = event.target.closest('.recipe-card')
   user.favoriteRecipes.forEach((recipe, index) => {
     if(recipe.id === parseInt(card.dataset.id)) {
-      console.log("OUT", recipe)
       user.favoriteRecipes.splice(index, 1)
     }
   })
-  console.log(user.favoriteRecipes)
 }
