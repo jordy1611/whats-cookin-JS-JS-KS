@@ -116,7 +116,8 @@ function displayRecipeCards(recipeArray, className) {
 function displayPantryLists(pantry, ingredientsArray) {
   pantry.pantry.forEach(function(item) {
     const list = `
-        <li class="ingredient">${itemNameById(item.ingredient, ingredientsArray)}  Amount: ${item.amount}</li>`;
+        <li class="ingredient">${itemNameById(item.ingredient, ingredientsArray)}</li>
+          <li class="amount">Qty: ${item.amount}</li>`;
     userPantrySection.insertAdjacentHTML('beforeend', list);
   })
 }

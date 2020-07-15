@@ -83,7 +83,8 @@ h2 {
 .recipe-card{
   background-color: #E4E8EB;
   border: 3px solid #3F5330;
-  border-radius: 2px;
+  border-radius: 6px;
+  box-shadow: 4px 4px 7px 0px #2f2a2a;
   width: 24em;
   height: 25em;
   margin-top: 1em;
@@ -98,8 +99,8 @@ h2 {
 }
 
 .recipe-img {
-  width: 22em;
-  margin: 1em 1em 0 1em;
+  width: 24em;
+  /* margin: 1em 1em 0 1em; */
 }
 
 .recipe-name {
@@ -134,14 +135,18 @@ h2 {
 .missing-ingredients{
   background-color: #FA8A42;
   border: 2px solid #3F5330;
+  box-shadow: 4px 4px 7px 0px #2f2a2a;
   width: 24em;
   margin-top: 1em;
-  padding: 1em;
-  list-style: circle;
+  padding: .7em;
+  list-style: none;
 }
 
 .user-pantry > h3 {
   text-align: center;
+  font-size: 2em;
+  border-bottom: 4px solid black;
+  margin-bottom: 6px;
 }
 
 .missing-ingredients > h3 {
@@ -152,6 +157,13 @@ h2 {
   text-align: left;
   text-transform: capitalize;
 }
+
+.amount {
+  text-align: left;
+  font-size: .8em;
+  
+}
+
 .hidden {
   display: none;
 }
