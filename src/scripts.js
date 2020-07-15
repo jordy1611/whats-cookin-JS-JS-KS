@@ -40,6 +40,7 @@ function clickHandler(event) {
     displayPantryPage();
   } else if (event.target.classList.contains('white-star')) {
     addUserFavorite(event); //turn into helper function
+    event.target.src = "../assets/star-active.svg";
     event.target.classList.add('red-star')
     event.target.classList.remove('white-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
@@ -47,6 +48,7 @@ function clickHandler(event) {
     displayUserPantry();
   } else if (event.target.classList.contains('red-star')) {
     removeUserFavorite(event) //turn into helper function
+    event.target.src = "../assets/star.svg";
     event.target.classList.add('white-star')
     event.target.classList.remove('red-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
@@ -54,6 +56,8 @@ function clickHandler(event) {
     displayUserPantry();
   }
 }
+
+
 
 const displayRecipesPage = () => { //change to es5?
   displayElement('cards-body');
