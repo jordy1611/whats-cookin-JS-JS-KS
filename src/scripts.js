@@ -16,13 +16,21 @@ console.log('Hello World');
 // const shoppingList;
 
 //eventListeners
-window.addEventListener('click', clickHandler);
 window.addEventListener('load', onLoad);
+window.addEventListener('click', clickHandler);
 window.addEventListener('dblclick', updateRecipesToCook)
 searchInput.addEventListener('input', showInputFinder);
 
 
 //eventHandlers
+
+function onLoad() {
+  randomizeUser();
+  const allRecipes = generateRecipes(recipeData); //randomize recipes?
+  displayRecipeCards(allRecipes, 'cards-body');
+  displayUserPantry();
+//  userRecipes = generateRecipes(user.favoriteRecipes);
+}
 
 function clickHandler(event) {
   if (event.target.classList.contains('recipes-button')) {
@@ -34,17 +42,15 @@ function clickHandler(event) {
     event.target.classList.add('red-star')
     event.target.classList.remove('white-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
-    // console.log('before display', userRecipes);
     displayRecipeCards(userRecipes, 'pantry-body');
-   // console.log('after display', userRecipes);
-  //  console.log(user.favoriteRecipes);
+    displayUserPantry();
   } else if (event.target.classList.contains('red-star')) {
     removeUserFavorite(event) //turn into helper function
     event.target.classList.add('white-star')
     event.target.classList.remove('red-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
-    displayRecipeCards(userRecipes, 'pantry-body')
-  //  console.log(user.favoriteRecipes);
+    displayRecipeCards(userRecipes, 'pantry-body');
+    displayUserPantry();
   }
 }
 
@@ -66,8 +72,6 @@ const displayPantryPage = () => { //change to es5?
   updatePageHeader('My Pantry');
 }
 
-
-
 function updatePageHeader(pageTitle) {
   document.querySelector('.pageTitle').innerText = pageTitle
 }
@@ -79,14 +83,9 @@ function hideElement(className) {
   document.querySelector(`.${className}`).classList.add('hidden');
 }
 
-function onLoad() {
-  const allRecipes = generateRecipes(recipeData); //randomize recipes?
-  displayRecipeCards(allRecipes, 'cards-body');
-  randomizeUser();
-//  userRecipes = generateRecipes(user.favoriteRecipes);
-}
 
-function displayRecipeCards(recipeArray, className) { //add if statement for pantry
+function displayRecipeCards(recipeArray, className) {
+  //rename or put inside another function alongside displayUserPantry
   const cardSection = document.querySelector(`.${className}`);
   cardSection.innerHTML = '';
   recipeArray.forEach(function(recipe) {
@@ -107,8 +106,29 @@ function displayRecipeCards(recipeArray, className) { //add if statement for pan
     //console.log('before');
     displayHiddenIngredients(recipe, className); //refactor
     //console.log('after');
-    displayHiddenInstructions(recipe, className)
+    displayHiddenInstructions(recipe, className);
+
   })
+}
+
+function displayUserPantry() {
+  const pantry = `
+  <article class="user-pantry">
+    <h3>Pantry</h3>
+    <div class="ingredient">flour...     ...3cups</div>
+    <div class="ingredient">flour...     ...3cups</div>
+    <div class="ingredient">flour...     ...3cups</div>
+    <div class="ingredient">flour...     ...3cups</div>
+  </article>
+  <article class="missing-ingredients">
+    <h3>Missing Ingredients</h3>
+    <div class="ingredient">not flour...     ...2cups</div>
+    <div class="ingredient">not flour...     ...2cups</div>
+    <div class="ingredient">not flour...     ...2cups</div>
+    <div class="ingredient">not flour...     ...2cups</div>
+  </article>
+  `
+  document.querySelector('.pantry-body').insertAdjacentHTML('afterbegin', pantry)
 }
 
 function displayHiddenIngredients(recipe, className) {
