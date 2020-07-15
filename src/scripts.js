@@ -1,4 +1,4 @@
-// const ingredientsData = require('../data/ingredients.js');
+// const ingredientsData = require('../data/ingredients');
 // const ingredientsData = require('../data/ingredients.js');
 // const recipesData = require('../data/recipes');
 // const ingredients = require('../data/ingredients');
@@ -6,7 +6,8 @@
 // const users = require('../data/users');
 // const Recipe = require('./Recipe');
 // const User = require('./User');
-// const Pantry = require('./Pantry');
+
+const userPantrySection = document.querySelector('.user-pantry');
 const searchInput = document.querySelector('.search-input');
 const cardsBodySection = document.querySelector('.cards-body'); // can go in line 60.5
 console.log('Hello World');
@@ -59,17 +60,18 @@ const displayRecipesPage = () => { //change to es5?
   displayElement('my-pantry-button');
   hideElement('pantry-body');
   hideElement('recipes-button');
-  hideElement('search-input')
-  updatePageHeader('Recipes')
+  hideElement('search-input');
+  updatePageHeader('Recipes');
 }
 
 const displayPantryPage = () => { //change to es5?
   displayElement('pantry-body');
   displayElement('recipes-button');
-  displayElement('search-input')
+  displayElement('search-input');
   hideElement('cards-body');
   hideElement('my-pantry-button');
   updatePageHeader('My Pantry');
+  displayPantryLists(userPantry, ingredientsData);
 }
 
 function updatePageHeader(pageTitle) {
@@ -111,6 +113,32 @@ function displayRecipeCards(recipeArray, className) {
   })
 }
 
+function displayPantryLists(pantry, ingredientsArray) {
+  pantry.pantry.forEach(function(item) {
+    const list = `
+        <li class="ingredient">${itemNameById(item.ingredient, ingredientsArray)}</li>
+          <li class="amount">Qty: ${item.amount}</li>`;
+    userPantrySection.insertAdjacentHTML('beforeend', list);
+  })
+}
+
+const itemNameById = (itemId, ingredientsArray) => {
+  let name;
+  ingredientsArray.forEach(ingredient => {
+    if (ingredient.id === itemId) {
+      name = ingredient.name
+    } 
+  })
+  return name;
+}
+
+const itemUnitById = (id, recipeArray) => {
+  recipeArray.forEach(recipe => {
+    return recipe.filter(ingredient => ingredient.id === id);
+  });
+  return recipeArray.quantity.unit;
+}
+
 function displayUserPantry() {
   const pantry = `
   <article class="user-pantry">
@@ -131,28 +159,26 @@ function displayUserPantry() {
   document.querySelector('.pantry-body').insertAdjacentHTML('afterbegin', pantry)
 }
 
-function displayHiddenIngredients(recipe, className) {
-  //console.log('recipe input', recipe) // recipe is correct her
-  recipe.ingredients.forEach(function(ingredient) {
-    //error here when nothing is passed through?
-    ingredient = `${getIngredientName(ingredient)}:
+function displayHiddenIngredients(ingredientsArray, recipe) {
+  ingredientsArray.forEach(function(ingredient) {
+    ingredient = `${recipe.getIngredientName(ingredient)}:
     ${ingredient.quantity.amount.toFixed(2)}
     ${ingredient.quantity.unit}</br>`
     updateHiddenCard(ingredient, className);
   });
 }
 
-function getIngredientName(ingredient) {
-  //returns name of ingredient
-  // use .find like in checkForIngredient
-  let name;
-  ingredientsData.forEach(ingredientData => {
-    if (ingredient.id === ingredientData.id) {
-      name = ingredientData.name;
-    }
-  })
-  return name;
-}
+// function getIngredientName(ingredient) {
+//   //returns name of ingredient
+//   // use .find like in checkForIngredient
+//   let name;
+//   ingredientsData.forEach(ingredientData => {
+//     if (ingredient.id === ingredientData.id) {
+//       name = ingredientData.name;
+//     }
+//   })
+//   return name;
+// }
 
 function displayHiddenInstructions(recipe, className) {
   recipe.instructions.forEach(function(instruction) {
@@ -174,14 +200,13 @@ function generateRecipes(recipesInfo) {
 
 function randomizeUser() {
   let randomIndex = Math.floor(Math.random() * usersData.length);
-  //let randomUser = usersData[randomIndex];
   user = new User(usersData[randomIndex]);
   let greeting = document.querySelector('.user-profile-display');
   greeting.innerHTML = `Welcome, ${user.name}!`
-  //return user;
+  userPantry = new Pantry(user);
+  // return user;
 }
 
-var testVar;
 
 function showInputFinder(event) { //updated parameters in displayRecipeCards
 

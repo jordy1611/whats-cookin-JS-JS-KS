@@ -1,13 +1,17 @@
 const chai = require('chai');
 const expect = chai.expect;
-
+const ingredientsData = require('../data/ingredients');
 const Pantry = require('../src/Pantry');
 const User = require('../src/User');
 const Recipe = require('../src/Recipe');
 
+
 describe('Pantry', () => {
   let userPantry;
   let user;
+  let ingredientsInfo;
+  let recipe1;
+  let recipe2;
   
   beforeEach(function () {
     user = new User(
@@ -78,6 +82,7 @@ describe('Pantry', () => {
           "hor d'oeuvre"
         ]
       });
+
     recipe2 = new Recipe(
       {
         "id": 595736,
@@ -123,9 +128,35 @@ describe('Pantry', () => {
           "hor d'oeuvre"
         ]
       })
+
+    ingredientsInfo = [{
+      "id": 20,
+      "name": "olive oil",
+      "estimatedCostInCents": 124
+    },
+    {
+      "id": 1,
+      "name": "egg",
+      "estimatedCostInCents": 60
+    },
+    {
+      "id": 289,
+      "name": "nuts",
+      "estimatedCostInCents": 978
+    },
+    {
+      "id": 56,
+      "name": "mustard",
+      "estimatedCostInCents": 98
+    },
+    {
+      "id": 99,
+      "name": "mayo",
+      "estimatedCostInCents": 199
+    }];
     user.addRecipeToCook(recipe2);
     userPantry = new Pantry(user);
-    newIngredient = {name: 'lettuce', id: 88};
+    newIngredient = ingredientsInfo[1];
   });
 
   it('should be a function', () => {
@@ -163,16 +194,19 @@ describe('Pantry', () => {
   it('should list additional ingredients user needs to make recipe', () => {
     userPantry.checkPantry(recipe2);
     expect(userPantry.shoppingList).to.be.an('array').with.a.lengthOf(3);
-    console.log(userPantry.shoppingList);
   });
 
   // it.skip('should check if pantry ingrendient amount is enough to make recipe for each ingredient'{
 
   // });
 
-  // it.skip('should adjust recipe ammount if pantry has some ingredient but not enough' {
+  it('should adjust recipe ammount if pantry has some ingredient but not enough', () => {
+    userPantry.pantryIngredientAdjust(recipe1);
+    expect(userPantry.pantry).to.be.an('array').with.a.lengthOf(4);
+    console.log(userPantry.shoppingList);
+    console.log(userPantry.pantry);
 
-  // });
+  });
 
   // it.skip('should adjust pantry if recipe is cooked and reduce pantry.ingredient.amount appropriatlly'{
 
