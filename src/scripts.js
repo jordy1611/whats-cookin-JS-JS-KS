@@ -103,6 +103,7 @@ function displayRecipeCards(recipeArray, className) {
       <section class="displayed-card">
         <img class="recipe-img" src=${recipe.image}>
         <p class="recipe-name">${recipe.name}</p>
+        <p class="total-cost">Total Cost: $${recipe.calculateTotalCost().toFixed(2)}</p>
       </section>
     </article>`;
     document.querySelector(`.${className}`).insertAdjacentHTML('afterbegin', card);
@@ -199,7 +200,7 @@ function showInputFinder(event) { //updated parameters in displayRecipeCards
 
   var searchBarInput = event.target.value;
   var foundRecipes = user.searchRecipeByName(searchBarInput);
-
+  clearInnerHTML('user-recipes');
   displayRecipeCards(foundRecipes, 'user-recipes');
   testVar = foundRecipes
 }
