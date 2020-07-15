@@ -6,7 +6,7 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
-<!-- <br />
+<br />
 <p align="center">
   <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
@@ -25,7 +25,7 @@
     ·
     <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS/issues">Request Feature</a>
   </p>
-</p> -->
+</p>
 
 ## Table of Contents
 
@@ -46,9 +46,6 @@
 ## About The Project
 
 ![Whats Cooking screenshot](url)
-
-Mod 2 paired project Abstract statement
-
 
 
 <!-- GETTING STARTED -->
@@ -148,6 +145,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 
 Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Joshua Sevy - joshuasevy@outlook.com
 
 Project Link: [https://github.com/jordy1611/whats-cookin-JS-JS-KS](https://github.com/jordy1611/whats-cookin-JS-JS-KS)
 
@@ -173,6 +171,6 @@ Project Link: [https://github.com/jordy1611/whats-cookin-JS-JS-KS](https://githu
 [issues-shield]: https://img.shields.io/github/issues/jordy1611/whats-cookin-JS-JS-KS.svg?style=flat-square
 [issues-url]: https://github.com/jordy1611/whats-cookin-JS-JS-KS/issuesÂ
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-<!-- [linkedin-url]: https://linkedin.com/in/linkHere -->
+[linkedin-url]: https://www.linkedin.com/in/jordan-shryock-6a48b9113/
 <!-- [product-screenshot]: images/screenshot.png -->
 

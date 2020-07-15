@@ -28,7 +28,7 @@ function onLoad() {
   randomizeUser();
   const allRecipes = generateRecipes(recipeData); //randomize recipes?
   displayRecipeCards(allRecipes, 'cards-body');
-  displayUserPantry(userPantry, ingredientsData);
+  displayUserPantry(userPantry, user, ingredientsData);
 //  userRecipes = generateRecipes(user.favoriteRecipes);
 }
 
@@ -132,11 +132,11 @@ function displayPantryLists(pantry, ingredientsArray) {
 }
 
 function displayShoppingLists(pantry, user, ingredientsArray) {
-  if (pantry.shoppingList > 1) {
+  if (user.favoriteRecipes.length > 1) {
     pantry.checkPantry(user.favoriteRecipes[0]);
     pantry.shoppingList.forEach(function(item) {
       const list = `
-          <li class="ingredient">${itemNameById(item.id, ingredientsArray)}</li>
+          <li class="ingredient">${itemNameById(item.ingredient, ingredientsArray)}</li>
             <li class="amount">Qty: ${item.amount}</li>`;
       userShoppingList.insertAdjacentHTML('beforeend', list);
     })
@@ -198,7 +198,6 @@ function randomizeUser() {
   let greeting = document.querySelector('.user-profile-display');
   greeting.innerHTML = `Welcome, ${user.name}!`
   userPantry = new Pantry(user);
-  // return user;
 }
 
 
@@ -219,7 +218,6 @@ function addUserFavorite(event) {
     }
 
   })
-
 }
 
 function removeUserFavorite(event) {
