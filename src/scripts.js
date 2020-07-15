@@ -32,15 +32,17 @@ function clickHandler(event) {
     event.target.classList.add('red-star')
     event.target.classList.remove('white-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
-    displayRecipeCards(userRecipes, '.user-recipes')
-    console.log(user.favoriteRecipes);
+    // console.log('before display', userRecipes);
+    displayRecipeCards(userRecipes, 'pantry-body');
+   // console.log('after display', userRecipes);
+  //  console.log(user.favoriteRecipes);
   } else if (event.target.classList.contains('red-star')) {
     removeUserFavorite(event) //turn into helper function
     event.target.classList.add('white-star')
     event.target.classList.remove('red-star')
     userRecipes = generateRecipes(user.favoriteRecipes);
-    displayRecipeCards(userRecipes, '.user-recipes')
-    console.log(user.favoriteRecipes);
+    displayRecipeCards(userRecipes, 'pantry-body')
+  //  console.log(user.favoriteRecipes);
   }
 }
 
@@ -77,54 +79,58 @@ function hideElement(className) {
 
 function onLoad() {
   const allRecipes = generateRecipes(recipeData); //randomize recipes?
-  displayRecipeCards(allRecipes, '.cards-body');
+  displayRecipeCards(allRecipes, 'cards-body');
   randomizeUser();
 //  userRecipes = generateRecipes(user.favoriteRecipes);
 }
 
 function displayRecipeCards(recipeArray, className) { //add if statement for pantry
-  const cardSection = document.querySelector(className);
+  const cardSection = document.querySelector(`.${className}`);
   cardSection.innerHTML = '';
   recipeArray.forEach(function(recipe) {
     const card = `
     <article class="recipe-card" data-id="${recipe.id}">
     <img class="white-star" src="../assets/star.svg">
     <img class="red-star hidden" src="../assets/star-active.svg">
-      <section class="hidden-card">
+      <section class="hidden-card-${className}">
       </section>
       <section class="displayed-card">
         <img class="recipe-img" src=${recipe.image}>
         <p class="recipe-name">${recipe.name}</p>
       </section>
     </article>`;
-
     cardSection.insertAdjacentHTML('afterbegin', card);
+    // document.querySelector(`.hidden-card-${className}`).innerHTML = ""; // query also in line 132
     //cardsBodySection.insertAdjacentHTML('afterbegin', card);
-    displayHiddenIngredients(recipe.ingredients, recipe);
-    displayHiddenInstructions(recipe)
+    //console.log('before');
+    displayHiddenIngredients(recipe, className); //refactor
+    //console.log('after');
+    displayHiddenInstructions(recipe, className)
   })
 }
 
-function displayHiddenIngredients(ingredientsArray, recipe) {
-  ingredientsArray.forEach(function(ingredient) {
+function displayHiddenIngredients(recipe, className) {
+  //console.log('recipe input', recipe) // recipe is correct her
+  recipe.ingredients.forEach(function(ingredient) {
     ingredient = `${recipe.getIngredientName(ingredient)}:
     ${ingredient.quantity.amount.toFixed(2)}
     ${ingredient.quantity.unit}</br>`
-    console.log(ingredient);
-    updateHiddenCard(ingredient);
+    updateHiddenCard(ingredient, className);
   });
 }
 
-function displayHiddenInstructions(recipe) {
+function displayHiddenInstructions(recipe, className) {
   recipe.instructions.forEach(function(instruction) {
     instruction = `${instruction.number}.
     ${instruction.instruction}</br>`
-    updateHiddenCard(instruction);
+    updateHiddenCard(instruction, className);
   });
 }
 
-function updateHiddenCard(item) {
-  document.querySelector('.hidden-card').insertAdjacentHTML('beforeend', item)
+function updateHiddenCard(item, className) {
+  console.log(item);
+  // document.querySelector('.hidden-card').innerHTML = "";
+  document.querySelector(`.hidden-card-${className}`).insertAdjacentHTML('beforeend', item)
 }
 // can be tested - should generate array of all recipes on load
 function generateRecipes(recipesInfo) {
@@ -146,8 +152,8 @@ function showInputFinder(event) {
 
   var searchBarInput = event.target.value;
   var foundRecipes = user.searchRecipeByName(searchBarInput);
-  console.log(searchBarInput)
-  console.log(foundRecipes)
+  //console.log(searchBarInput)
+//   console.log(foundRecipes)
   displayRecipeCards(foundRecipes)
   testVar = foundRecipes
 }
@@ -158,7 +164,9 @@ function addUserFavorite(event) {
     if(recipe.id === parseInt(card.dataset.id)) {
       user.favoriteRecipes.push(recipe)
     }
+    //console.log(recipe);
   })
+  // console.log('innerHTML', `${event.target.innerHTML}`)
 }
 
 function removeUserFavorite(event) {
