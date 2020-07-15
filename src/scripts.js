@@ -28,7 +28,13 @@ function clickHandler(event) {
   } else if (event.target.classList.contains('my-pantry-button')) {
     displayPantryPage();
   } else if (event.target.classList.contains('white-star')) {
-    userFavorite(event);
+    addUserFavorite(event);
+    event.target.classList.add('red-star')
+    event.target.classList.remove('white-star')
+  } else if (event.target.classList.contains('red-star')) {
+    removeUserFavorite(event)
+    event.target.classList.add('white-star')
+    event.target.classList.remove('red-star')
   }
 }
 
@@ -49,6 +55,8 @@ const displayPantryPage = () => { //change to es5?
   hideElement('my-pantry-button');
   updatePageHeader('My Pantry');
 }
+
+
 
 function updatePageHeader(pageTitle) {
   document.querySelector('.pageTitle').innerText = pageTitle
@@ -145,7 +153,7 @@ function showInputFinder(event) {
   testVar = foundRecipes
 }
 
-function userFavorite(event) {
+function addUserFavorite(event) {
   let card = event.target.closest('.recipe-card')
   recipeData.forEach(recipe => {
     if(recipe.id === parseInt(card.dataset.id)) {
@@ -154,5 +162,15 @@ function userFavorite(event) {
     }
   })
   console.log(user.favoriteRecipes)
+}
 
+function removeUserFavorite(event) {
+  let card = event.target.closest('.recipe-card')
+  user.favoriteRecipes.forEach((recipe, index) => {
+    if(recipe.id === parseInt(card.dataset.id)) {
+      console.log("OUT", recipe)
+      user.favoriteRecipes.splice(index, 1)
+    }
+  })
+  console.log(user.favoriteRecipes)
 }
