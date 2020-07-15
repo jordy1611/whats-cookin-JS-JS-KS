@@ -11,8 +11,6 @@ const userShoppingList = document.querySelector('.missing-ingredients');
 const userPantrySection = document.querySelector('.user-pantry');
 const searchInput = document.querySelector('.search-input');
 const cardsBodySection = document.querySelector('.cards-body'); // can go in line 60.5
-console.log('Hello World');
-
 // const allRecipes = generateRecipes(recipeData);
 // const userRecipes = generateRecipeCards();
 // const shoppingList;
@@ -110,9 +108,9 @@ function displayRecipeCards(recipeArray, className) {
     cardSection.insertAdjacentHTML('afterbegin', card);
     // document.querySelector(`.hidden-card-${className}`).innerHTML = ""; // query also in line 132
     //cardsBodySection.insertAdjacentHTML('afterbegin', card);
-    //console.log('before');
+
     displayHiddenIngredients(recipe, className); //refactor
-    //console.log('after');
+
     displayHiddenInstructions(recipe, className);
 
   })
@@ -150,17 +148,10 @@ function itemNameById(itemId, ingredientsArray) {
   ingredientsArray.forEach(ingredient => {
     if (ingredient.id === itemId) {
       name = ingredient.name
-    } 
+    }
   })
   return name;
 }
-
-// const itemUnitById = (id, recipeArray) => {
-//   recipeArray.forEach(recipe => {
-//     return recipe.filter(ingredient => ingredient.id === id);
-//   });
-//   return recipeArray.quantity.unit;
-// }
 
 function displayHiddenIngredients(recipe, className) {
   recipe.ingredients.forEach(function(ingredient) {
@@ -192,7 +183,7 @@ function displayHiddenInstructions(recipe, className) {
 }
 
 function updateHiddenCard(item, className) {
-  console.log(item);
+
   // document.querySelector('.hidden-card').innerHTML = "";
   document.querySelector(`.hidden-card-${className}`).insertAdjacentHTML('beforeend', item)
 }
@@ -215,9 +206,8 @@ function showInputFinder(event) { //updated parameters in displayRecipeCards
 
   var searchBarInput = event.target.value;
   var foundRecipes = user.searchRecipeByName(searchBarInput);
-  //console.log(searchBarInput)
-//   console.log(foundRecipes)
-  displayRecipeCards(foundRecipes, 'pantry-body');
+
+  displayRecipeCards(foundRecipes, 'user-recipes');
   testVar = foundRecipes
 }
 
@@ -227,9 +217,9 @@ function addUserFavorite(event) {
     if(recipe.id === parseInt(card.dataset.id)) {
       user.favoriteRecipes.push(recipe)
     }
-    //console.log(recipe);
+
   })
-  // console.log('innerHTML', `${event.target.innerHTML}`)
+
 }
 
 function removeUserFavorite(event) {
@@ -242,5 +232,5 @@ function removeUserFavorite(event) {
 }
 
 function updateRecipesToCook() {
-  console.log('dubs click');
+
 }

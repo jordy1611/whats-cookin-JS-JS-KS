@@ -88,6 +88,8 @@ h2 {
   width: 24em;
   height: 25em;
   margin-top: 1em;
+  margin-left: .5em;
+  margin-right: .5em;
   display: grid;
   grid-template-areas: 'a';
 }
@@ -110,7 +112,7 @@ h2 {
 }
 
 .hidden-card-cards-body,
-.hidden-card-pantry-body {
+.hidden-card-user-recipes {
   background-color: #FA8A42;
   grid-area: a;
   /* align-self: start;
@@ -126,7 +128,22 @@ h2 {
   line-height: 1.2em;
 }
 
-.recipe-card > .hidden-card-cards-body:hover, .hidden-card-pantry-body:hover  {
+.pantry-body{
+  display: grid;
+  grid-template-columns: 1fr 4fr
+}
+.user-recipes{
+  max-width: 80%;
+  grid-column: 2 / 3;
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-around; */
+}
+.user-pantry{
+  grid-column: 1 / 2
+}
+
+.recipe-card > .hidden-card-cards-body:hover, .hidden-card-user-recipes:hover  {
   opacity: .85;
    transform: scale(1)
 }
@@ -161,7 +178,7 @@ h2 {
 .amount {
   text-align: left;
   font-size: .8em;
-  
+
 }
 
 .hidden {
