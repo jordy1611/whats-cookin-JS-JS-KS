@@ -125,10 +125,13 @@ h2 {
   line-height: 1.2em;
 }
 
-.recipe-card > .hidden-card-cards-body:hover, .hidden-card-pantry-body:hover  {
+.recipe-card > .hidden-card-cards-body:hover,
+ .hidden-card-pantry-body:hover  {
   opacity: .85;
    transform: scale(1)
 }
+
+
 
 .user-pantry,
 .missing-ingredients{
@@ -165,4 +168,10 @@ z-index: 1;
   height: 4em;
   grid-area: a;
   z-index: 1;
+}
+
+.recipe-card >
+.white-star:hover,
+.red-star:hover {
+  z-index: 4;
 }

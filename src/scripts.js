@@ -87,7 +87,7 @@ function hideElement(className) {
 function displayRecipeCards(recipeArray, className) {
   //rename or put inside another function alongside displayUserPantry
   const cardSection = document.querySelector(`.${className}`);
-  cardSection.innerHTML = '';
+  cardSection.innerHTML = ''; //it's own helper function?
   recipeArray.forEach(function(recipe) {
     const card = `
     <article class="recipe-card" data-id="${recipe.id}">
