@@ -45,6 +45,14 @@ class Pantry {
     let index = this.pantry.ingredient.indexOf(recipe.ingredient.id);
     this.pantry.splice(index, 1);
   }
+
+  returnShoppingList() {
+    return this.shoppingList;
+  }
+
+  returnPantry() {
+    return this.pantry;
+  }
 }
 
 if (typeof module !== 'undefined') {

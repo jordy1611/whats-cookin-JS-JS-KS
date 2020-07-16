@@ -206,10 +206,6 @@ describe('Pantry', () => {
   it('should return the users pantry', () => {
     expect(userPantry.returnPantry()).to.be.an('array').with.a.lengthOf(4);
   })
-  // stretch goal if we get to this point in project
-  it('should be able to add item to this.pantry', () => {
-    userPantry.addToPantry(newIngredient, 5);
-    expect(userPantry.pantry).to.be.an('array').with.a.lengthOf(5);
-  })
+ 
 });
 
