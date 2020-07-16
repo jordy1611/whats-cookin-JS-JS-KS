@@ -195,11 +195,9 @@ function randomizeUser() {
 }
 
 
-function showInputFinder(event) { //updated parameters in displayRecipeCards
-
-  var searchBarInput = event.target.value;
-  var foundRecipes = user.searchRecipeByName(searchBarInput);
-
+function showInputFinder(event) {
+  let searchBarInput = event.target.value;
+  let foundRecipes = user.searchRecipeByName(searchBarInput);
   displayRecipeCards(foundRecipes, 'user-recipes');
   testVar = foundRecipes
 }
@@ -207,18 +205,16 @@ function showInputFinder(event) { //updated parameters in displayRecipeCards
 function addUserFavorite(event, userArray) {
   let card = event.target.closest('.recipe-card')
   recipeData.forEach(recipe => {
-    if(recipe.id === parseInt(card.dataset.id) && !userArray.includes(recipe)) {
+    if (recipe.id === parseInt(card.dataset.id) && !userArray.includes(recipe)) {
       userArray.push(recipe)
     }
-
   })
-
 }
 
 function removeUserFavorite(event, userArray) {
   let card = event.target.closest('.recipe-card')
   userArray.forEach((recipe, index) => {
-    if(recipe.id === parseInt(card.dataset.id)) {
+    if (recipe.id === parseInt(card.dataset.id)) {
       userArray.splice(index, 1)
     }
   })
@@ -231,21 +227,21 @@ function updateRecipesToCook(event) {
   displayRecipeToCook();
   }
 
-  function displayRecipeToCook() {
-    // clearInnerHTML('user-recipes');
-    const card = `
-    <article class="recipe-card-to-cook" data-id="${user.recipesToCook[0].id}">
-    <img class="white-star" src="../assets/star.svg">
-    <img class="red-star hidden" src="../assets/star-active.svg">
-      <section class="hidden-card-to-cook">
-      </section>
-      <section class="displayed-card">
-        <img class="recipe-img" src=${user.recipesToCook[0].image}>
-        <p class="recipe-to-cook-name">${user.recipesToCook[0].name}</p>
-        <p class="recipe-to-cook-text">Recipe To Cook</p>
-      </section>
-    </article>`
-    document.querySelector(`.user-recipes`).insertAdjacentHTML('afterbegin', card);
-    displayHiddenIngredients(user.recipesToCook[0], 'to-cook'); //refactor
-    displayHiddenInstructions(user.recipesToCook[0], 'to-cook');
-  }
+function displayRecipeToCook() {
+  // clearInnerHTML('user-recipes');
+  const card = `
+  <article class="recipe-card-to-cook" data-id="${user.recipesToCook[0].id}">
+  <img class="white-star" src="../assets/star.svg">
+  <img class="red-star hidden" src="../assets/star-active.svg">
+    <section class="hidden-card-to-cook">
+    </section>
+    <section class="displayed-card">
+      <img class="recipe-img" src=${user.recipesToCook[0].image}>
+      <p class="recipe-to-cook-name">${user.recipesToCook[0].name}</p>
+      <p class="recipe-to-cook-text">Recipe To Cook</p>
+    </section>
+  </article>`
+  document.querySelector(`.user-recipes`).insertAdjacentHTML('afterbegin', card);
+  displayHiddenIngredients(user.recipesToCook[0], 'to-cook'); //refactor
+  displayHiddenInstructions(user.recipesToCook[0], 'to-cook');
+}
