@@ -6,10 +6,10 @@
 [![LinkedIn][linkedin-shield]][linkedin-url] -->
 
 
-<!-- <br />
+<br />
 <p align="center">
   <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.pngio.com%2Fchef-cooking-logo-clip-art-cook-free-transparent-png-clipart-cook-png-black-and-white-840_1015.png&f=1&nofb=1" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">What's Cookin</h3>
@@ -25,7 +25,7 @@
     ·
     <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS/issues">Request Feature</a>
   </p>
-</p> -->
+</p>
 
 ## Table of Contents
 
@@ -46,11 +46,13 @@
 
 ![Whats Cooking screenshot](url)
 
+
 A site for recipe tracking where users can select their favorite recipes and choose a recipe to cook for the week.  A user is able to see ingredients in their individual pantry and make a shopping list of items to purchase to cook their favorite recipes.
 
 ### Installation
 
 **Fork this repository:**
+
 
 https://github.com/jordy1611/whats-cookin-JS-JS-KS.git
 
@@ -143,6 +145,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 
 Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Joshua Sevy - joshuasevy@outlook.com
 
 Project Link: [https://github.com/jordy1611/whats-cookin-JS-JS-KS](https://github.com/jordy1611/whats-cookin-JS-JS-KS)
 
@@ -170,5 +173,8 @@ Project Link: [https://github.com/jordy1611/whats-cookin-JS-JS-KS](https://githu
 [issues-url]: https://github.com/jordy1611/whats-cookin-JS-JS-KS/issuesÂ
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 
+
 <!-- [linkedin-url]: https://linkedin.com/in/linkHere -->
+[linkedin-url]: https://www.linkedin.com/in/jordan-shryock-6a48b9113/
+
 <!-- [product-screenshot]: images/screenshot.png -->

@@ -5,11 +5,13 @@
 // const recipes = require('../data/recipes');
 // const users = require('../data/users');
 // const Recipe = require('./Recipe');
-// const User = require('./User');
 
+// const User = require('./User');
+const userShoppingList = document.querySelector('.missing-ingredients');
 const userPantrySection = document.querySelector('.user-pantry');
 const searchInput = document.querySelector('.search-input');
 const cardsBodySection = document.querySelector('.cards-body'); // can go in line 60.5
+userRecipes = [];
 // const allRecipes = generateRecipes(recipeData);
 // const userRecipes = generateRecipeCards();
 // const shoppingList;
@@ -27,6 +29,7 @@ function onLoad() {
   randomizeUser();
   const allRecipes = generateRecipes(recipeData); //randomize recipes?
   displayRecipeCards(allRecipes, 'cards-body');
+  displayUserPantry(userPantry, user, ingredientsData);
 //  userRecipes = generateRecipes(user.favoriteRecipes);
 }
 
@@ -34,29 +37,37 @@ function clickHandler(event) {
   if (event.target.classList.contains('recipes-button')) {
     displayRecipesPage();
   } else if (event.target.classList.contains('my-pantry-button')) {
-    displayPantryPage();
+    userRecipes = generateRecipes(user.favoriteRecipes);
+    clearInnerHTML('user-recipes');
+    // displayRecipeCards(userRecipes, 'pantry-body');
+    displayUserPantry(userPantry, user, ingredientsData);
+    clearInnerHTML('user-recipes');
+    displayRecipeCards(userRecipes, 'user-recipes');
+    displayPantryPage(userPantry, user, ingredientsData);
   } else if (event.target.classList.contains('white-star')) {
     addUserFavorite(event, user.favoriteRecipes); //turn into helper function
     event.target.src = "../assets/star-active.svg";
     event.target.classList.add('red-star')
     event.target.classList.remove('white-star')
-    userRecipes = generateRecipes(user.favoriteRecipes);
-    clearInnerHTML('user-recipes');
-    displayRecipeCards(userRecipes, 'user-recipes');
+    // userRecipes = generateRecipes(user.favoriteRecipes);
+    // displayRecipeCards(userRecipes, 'pantry-body');
+    // displayUserPantry(userPantry, user, ingredientsData);
+    // clearInnerHTML('user-recipes');
+    // displayRecipeCards(userRecipes, 'user-recipes');
     // displayUserPantry();
   } else if (event.target.classList.contains('red-star')) {
     removeUserFavorite(event, user.favoriteRecipes); //turn into helper function
     event.target.src = "../assets/star.svg";
     event.target.classList.add('white-star')
     event.target.classList.remove('red-star')
-    userRecipes = generateRecipes(user.favoriteRecipes);
-    clearInnerHTML('user-recipes');
-    displayRecipeCards(userRecipes, 'user-recipes');
+    // userRecipes = generateRecipes(user.favoriteRecipes);
+    // displayRecipeCards(userRecipes, 'pantry-body');
+    // displayUserPantry(userPantry, user, ingredientsData);
+    // clearInnerHTML('user-recipes');
+    // displayRecipeCards(userRecipes, 'user-recipes');
     // displayUserPantry();
   }
 }
-
-
 
 const displayRecipesPage = () => { //change to es5?
   displayElement('cards-body');
@@ -74,8 +85,10 @@ const displayPantryPage = () => { //change to es5?
   hideElement('cards-body');
   hideElement('my-pantry-button');
   updatePageHeader('My Pantry');
-  displayPantryLists(userPantry, ingredientsData);
+  displayUserPantry(userPantry, user, ingredientsData);
 }
+
+
 
 function updatePageHeader(pageTitle) {
   document.querySelector('.pageTitle').innerText = pageTitle
@@ -103,6 +116,7 @@ function displayRecipeCards(recipeArray, className) {
       <section class="displayed-card">
         <img class="recipe-img" src=${recipe.image}>
         <p class="recipe-name">${recipe.name}</p>
+        <p class="total-cost">Total Cost: $${recipe.calculateTotalCost().toFixed(2)}</p>
       </section>
     </article>`;
     document.querySelector(`.${className}`).insertAdjacentHTML('afterbegin', card);
@@ -116,11 +130,17 @@ function displayRecipeCards(recipeArray, className) {
   })
 }
 
+function displayUserPantry(pantry, user, ingData) {
+  displayPantryLists(pantry, ingData);
+  displayShoppingLists(pantry, user, ingData);
+}
+
 function clearInnerHTML(className) {
   document.querySelector(`.${className}`).innerHTML = '';
 }
 
 function displayPantryLists(pantry, ingredientsArray) {
+  userPantrySection.innerHTML = '<h3>Pantry</h3>';
   pantry.pantry.forEach(function(item) {
     const list = `
         <li class="ingredient">${itemNameById(item.ingredient, ingredientsArray)}</li>
@@ -129,7 +149,33 @@ function displayPantryLists(pantry, ingredientsArray) {
   })
 }
 
-const itemNameById = (itemId, ingredientsArray) => {
+function displayShoppingLists(pantry, user, ingredientsArray) {
+  if (user.recipesToCook.length > 0) {
+    pantry.checkPantry(user.recipesToCook[0]);
+    userShoppingList.innerHTML = '<h3>Shopping List</h3>';
+    pantry.shoppingList.forEach(function(item) {
+      const list = `
+          <li class="ingredient">${itemNameById(item.id, ingredientsArray)}</li>
+            <li class="amount">Qty: ${item.quantity.amount} - ${item.quantity.unit}</li>`;
+      userShoppingList.insertAdjacentHTML('beforeend', list);
+    })
+  }
+}
+
+// function displayShoppingLists(pantry, user, ingredientsArray) {
+//   if (user.favoriteRecipes.length > 0) {
+//     pantry.checkPantry(user.favoriteRecipes[0]);
+//     userShoppingList.innerHTML = '<h3>Shopping List</h3>';
+//     pantry.shoppingList.forEach(function(item) {
+//       const list = `
+//           <li class="ingredient">${itemNameById(item.id, ingredientsArray)}</li>
+//             <li class="amount">Qty: ${item.quantity.amount} - ${item.quantity.unit}</li>`;
+//       userShoppingList.insertAdjacentHTML('beforeend', list);
+//     })
+//   }
+// }
+
+function itemNameById(itemId, ingredientsArray) {
   let name;
   ingredientsArray.forEach(ingredient => {
     if (ingredient.id === itemId) {
@@ -191,19 +237,26 @@ function randomizeUser() {
   let greeting = document.querySelector('.user-profile-display');
   greeting.innerHTML = `Welcome, ${user.name}!`
   userPantry = new Pantry(user);
-  // return user;
 }
+
 
 
 function showInputFinder(event) {
   let searchBarInput = event.target.value;
   let foundRecipes = user.searchRecipeByName(searchBarInput);
+}
+
+function showInputFinder(event) { //updated parameters in displayRecipeCards
+  var searchBarInput = event.target.value;
+  var foundRecipes = user.searchRecipeByName(searchBarInput);
+  clearInnerHTML('user-recipes');
   displayRecipeCards(foundRecipes, 'user-recipes');
   testVar = foundRecipes
 }
 
-function addUserFavorite(event, userArray) {
-  let card = event.target.closest('.recipe-card')
+function addUserFavorite(event, userArray, ) {
+  let card = event.target.closest('.recipe-card-to-cook') ||
+  event.target.closest('.recipe-card')
   recipeData.forEach(recipe => {
     if (recipe.id === parseInt(card.dataset.id) && !userArray.includes(recipe)) {
       userArray.push(recipe)
@@ -218,6 +271,14 @@ function removeUserFavorite(event, userArray) {
       userArray.splice(index, 1)
     }
   })
+  if(!event.target.closest('.recipe-card-to-cook')) {
+    let card = event.target.closest('.recipe-card')
+    userArray.forEach((recipe, index) => {
+      if(recipe.id === parseInt(card.dataset.id)) {
+        userArray.splice(index, 1)
+      }
+    })
+  }
 }
 
 function updateRecipesToCook(event) {
@@ -225,6 +286,8 @@ function updateRecipesToCook(event) {
   addUserFavorite(event, user.recipesToCook);
   displayRecipeCards(userRecipes, 'user-recipes');
   displayRecipeToCook();
+  clearInnerHTML('missing-ingredients');
+  displayShoppingLists(userPantry, user, ingredientsData);
   }
 
 function displayRecipeToCook() {
