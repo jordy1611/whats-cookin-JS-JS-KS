@@ -116,7 +116,7 @@ function displayRecipeCards(recipeArray, className) {
       <section class="displayed-card">
         <img class="recipe-img" src=${recipe.image}>
         <p class="recipe-name">${recipe.name}</p>
-        <p class="total-cost">Total Cost: $${recipe.calculateTotalCost().toFixed(2)}</p>
+        <p class="total-cost">Total Cost: $${calculateTotalCost(recipe).toFixed(2)}</p>
       </section>
     </article>`;
     document.querySelector(`.${className}`).insertAdjacentHTML('afterbegin', card);
@@ -129,6 +129,31 @@ function displayRecipeCards(recipeArray, className) {
 
   })
 }
+
+function getIngredientCost(ingredient) {
+  let cost = 0;
+  ingredientsData.forEach(ingredientData => {
+    if (ingredient.id === ingredientData.id) {
+      cost = ingredientData.estimatedCostInCents;
+    }
+  })
+  return (cost / 100);
+}
+
+function calculateTotalCost(recipe) {
+  //returns total cost of recipe's ingredients in dollar amount
+  let costs = [];
+  recipe.ingredients.forEach(ingredient => {
+    costs.push(getIngredientCost(ingredient));
+  });
+  let totalCost = costs.reduce((sum, num) => sum += num, 0);
+  return totalCost; //changes to dollar amount
+}
+
+
+
+
+
 
 function displayUserPantry(pantry, user, ingData) {
   displayPantryLists(pantry, ingData);
@@ -245,7 +270,6 @@ function showInputFinder(event) { //updated parameters in displayRecipeCards
   var foundRecipes = user.searchRecipeByName(searchBarInput);
   clearInnerHTML('user-recipes');
   displayRecipeCards(foundRecipes, 'user-recipes');
-  testVar = foundRecipes
 }
 
 function addUserFavorite(event, userArray, ) {
