@@ -199,13 +199,16 @@ h2 {
 }
 
 .user-pantry > h3 {
-  border-bottom: 4px solid black;
+  border-bottom: 4px solid #FFFFFF;
   font-size: 2em;
   margin-bottom: 6px;
   text-align: center;
 }
 
 .missing-ingredients > h3 {
+  border-bottom: 4px solid #FFFFFF;
+  font-size: 2em;
+  margin-bottom: 6px;
   text-align: center;
 }
 
