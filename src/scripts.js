@@ -187,19 +187,6 @@ function displayShoppingLists(pantry, user, ingredientsArray) {
   }
 }
 
-// function displayShoppingLists(pantry, user, ingredientsArray) {
-//   if (user.favoriteRecipes.length > 0) {
-//     pantry.checkPantry(user.favoriteRecipes[0]);
-//     userShoppingList.innerHTML = '<h3>Shopping List</h3>';
-//     pantry.shoppingList.forEach(function(item) {
-//       const list = `
-//           <li class="ingredient">${itemNameById(item.id, ingredientsArray)}</li>
-//             <li class="amount">Qty: ${item.quantity.amount} - ${item.quantity.unit}</li>`;
-//       userShoppingList.insertAdjacentHTML('beforeend', list);
-//     })
-//   }
-// }
-
 function itemNameById(itemId, ingredientsArray) {
   let name;
   ingredientsArray.forEach(ingredient => {

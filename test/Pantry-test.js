@@ -1,10 +1,8 @@
 const chai = require('chai');
 const expect = chai.expect;
-const ingredientsData = require('../data/ingredients');
 const Pantry = require('../src/Pantry');
 const User = require('../src/User');
 const Recipe = require('../src/Recipe');
-
 
 describe('Pantry', () => {
   let userPantry;
@@ -208,10 +206,6 @@ describe('Pantry', () => {
   it('should return the users pantry', () => {
     expect(userPantry.returnPantry()).to.be.an('array').with.a.lengthOf(4);
   })
-  // stretch goal if we get to this point in project
-  // it('should be able to add item to this.pantry', () => {
-  //   userPantry.addToPantry(newIngredient, 5);
-  //   expect(userPantry.pantry).to.be.an('array').with.a.lengthOf(5);
-  // })
+ 
 });
 
