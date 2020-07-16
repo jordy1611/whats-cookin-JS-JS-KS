@@ -32,7 +32,6 @@
 * [Data Model](#data-model)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
-* [License](#license)
 * [Main Contributors](#contributors)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
@@ -41,7 +40,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Whats Cooking screenshot](assets/mainPage.png)
+![Whats Cooking screenshot]()
 
 
 A site for recipe tracking where users can select their favorite recipes and choose a recipe to cook for the week.  A user is able to see ingredients in their individual pantry and make a shopping list of items to purchase to cook their favorite recipes.
@@ -143,12 +142,12 @@ Contributions are what make the open source community such an amazing place to b
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
 * [Img Shields](https://shields.io)
 * [Choose an Open Source License](https://choosealicense.com)
 * [GitHub Pages](https://pages.github.com)
 * [Font Awesome](https://fontawesome.com)
 * [Unplash](https://unsplash.com/)
+* [Turing School of Software and Design](https://turing.io/)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
