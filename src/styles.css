@@ -190,7 +190,7 @@ h2 {
 }
 
 .user-pantry,
-.missing-ingredients{
+.missing-ingredients {
   background-color: #FA8A42;
   border: 2px solid #3F5330;
   box-shadow: 4px 4px 7px 0px #2f2a2a;
@@ -200,15 +200,11 @@ h2 {
   list-style: none;
 }
 
-.user-pantry > h3 {
+h3 {
   text-align: center;
   font-size: 2em;
   border-bottom: 4px solid black;
   margin-bottom: 6px;
-}
-
-.missing-ingredients > h3 {
-  text-align: center;
 }
 
 .ingredient {
