@@ -75,7 +75,7 @@ https://github.com/jordy1611/whats-cookin-JS-JS-KS.git
 ![searching gif](assets/searching.gif)
 
 * Users can select a recipe to cook by double clicking a recipe. It's remaining ingredients will be displayed in the missing ingredients section of my pantry.
-![double clicking recipe](recipeToCook.gif)
+![double clicking recipe](assets/recipeToCook.gif)
 
 The details of this project are outlined in the <a href="https://frontend.turing.io/projects/whats-cookin.html" target="\__blank">project spec</a>.
 
