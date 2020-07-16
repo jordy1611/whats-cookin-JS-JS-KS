@@ -116,7 +116,7 @@ function displayRecipeCards(recipeArray, className) {
       <section class="displayed-card">
         <img class="recipe-img" src=${recipe.image}>
         <p class="recipe-name">${recipe.name}</p>
-        <p class="total-cost">Total Cost: $${recipe.calculateTotalCost().toFixed(2)}</p>
+        <p class="total-cost">Total Cost: $${calculateTotalCost(recipe).toFixed(2)}</p>
       </section>
     </article>`;
     document.querySelector(`.${className}`).insertAdjacentHTML('afterbegin', card);
@@ -129,6 +129,31 @@ function displayRecipeCards(recipeArray, className) {
 
   })
 }
+
+function getIngredientCost(ingredient) {
+  let cost = 0;
+  ingredientsData.forEach(ingredientData => {
+    if (ingredient.id === ingredientData.id) {
+      cost = ingredientData.estimatedCostInCents;
+    }
+  })
+  return (cost / 100);
+}
+
+function calculateTotalCost(recipe) {
+  //returns total cost of recipe's ingredients in dollar amount
+  let costs = [];
+  recipe.ingredients.forEach(ingredient => {
+    costs.push(getIngredientCost(ingredient));
+  });
+  let totalCost = costs.reduce((sum, num) => sum += num, 0);
+  return totalCost; //changes to dollar amount
+}
+
+
+
+
+
 
 function displayUserPantry(pantry, user, ingData) {
   displayPantryLists(pantry, ingData);
@@ -227,25 +252,36 @@ function randomizeUser() {
 }
 
 
+
+function showInputFinder(event) {
+  let searchBarInput = event.target.value;
+  let foundRecipes = user.searchRecipeByName(searchBarInput);
+}
+
 function showInputFinder(event) { //updated parameters in displayRecipeCards
   var searchBarInput = event.target.value;
   var foundRecipes = user.searchRecipeByName(searchBarInput);
   clearInnerHTML('user-recipes');
   displayRecipeCards(foundRecipes, 'user-recipes');
-  testVar = foundRecipes
 }
 
 function addUserFavorite(event, userArray, ) {
   let card = event.target.closest('.recipe-card-to-cook') ||
   event.target.closest('.recipe-card')
   recipeData.forEach(recipe => {
-    if(recipe.id === parseInt(card.dataset.id) && !userArray.includes(recipe)) {
+    if (recipe.id === parseInt(card.dataset.id) && !userArray.includes(recipe)) {
       userArray.push(recipe)
     }
   })
 }
 
 function removeUserFavorite(event, userArray) {
+  let card = event.target.closest('.recipe-card')
+  userArray.forEach((recipe, index) => {
+    if (recipe.id === parseInt(card.dataset.id)) {
+      userArray.splice(index, 1)
+    }
+  })
   if(!event.target.closest('.recipe-card-to-cook')) {
     let card = event.target.closest('.recipe-card')
     userArray.forEach((recipe, index) => {
@@ -265,21 +301,21 @@ function updateRecipesToCook(event) {
   displayShoppingLists(userPantry, user, ingredientsData);
   }
 
-  function displayRecipeToCook() {
-    // clearInnerHTML('user-recipes');
-    const card = `
-    <article class="recipe-card-to-cook" data-id="${user.recipesToCook[0].id}">
-    <img class="white-star" src="../assets/star.svg">
-    <img class="red-star hidden" src="../assets/star-active.svg">
-      <section class="hidden-card-to-cook">
-      </section>
-      <section class="displayed-card">
-        <img class="recipe-img" src=${user.recipesToCook[0].image}>
-        <p class="recipe-to-cook-name">${user.recipesToCook[0].name}</p>
-        <p class="recipe-to-cook-text">Recipe To Cook</p>
-      </section>
-    </article>`
-    document.querySelector(`.user-recipes`).insertAdjacentHTML('afterbegin', card);
-    displayHiddenIngredients(user.recipesToCook[0], 'to-cook'); //refactor
-    displayHiddenInstructions(user.recipesToCook[0], 'to-cook');
-  }
+function displayRecipeToCook() {
+  // clearInnerHTML('user-recipes');
+  const card = `
+  <article class="recipe-card-to-cook" data-id="${user.recipesToCook[0].id}">
+  <img class="white-star" src="../assets/star.svg">
+  <img class="red-star hidden" src="../assets/star-active.svg">
+    <section class="hidden-card-to-cook">
+    </section>
+    <section class="displayed-card">
+      <img class="recipe-img" src=${user.recipesToCook[0].image}>
+      <p class="recipe-to-cook-name">${user.recipesToCook[0].name}</p>
+      <p class="recipe-to-cook-text">Recipe To Cook</p>
+    </section>
+  </article>`
+  document.querySelector(`.user-recipes`).insertAdjacentHTML('afterbegin', card);
+  displayHiddenIngredients(user.recipesToCook[0], 'to-cook'); //refactor
+  displayHiddenInstructions(user.recipesToCook[0], 'to-cook');
+}
