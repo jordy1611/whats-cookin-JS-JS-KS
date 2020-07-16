@@ -41,7 +41,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Whats Cooking screenshot](url)
+![Whats Cooking screenshot](assets/mainPage.png)
 
 
 A site for recipe tracking where users can select their favorite recipes and choose a recipe to cook for the week.  A user is able to see ingredients in their individual pantry and make a shopping list of items to purchase to cook their favorite recipes.
