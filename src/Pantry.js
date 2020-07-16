@@ -28,15 +28,6 @@ class Pantry {
   addToShoppingList(ingredient) {
     this.shoppingList.push(ingredient);
   }
-
-  // ingredientDisplay(ingredient, recipe) {
-  //   let updateDisplayItem = {
-  //     id: ingredient.id,
-  //     amount: ingredient.quantity.amount
-  //   }
-  //   return updateDisplayItem;
-  // }
-  //^^^^^^^^^ Didnt need after changes to user class 
   
   pantryIngredientAdjust(recipe) {
     recipe.ingredients.forEach(item => {
@@ -49,19 +40,6 @@ class Pantry {
        }
     })
   }
-  //   for (let i = 0; i < recipe.ingredients; i++) {
-  //     for (let y = 0; y < this.pantry; y++) {
-  //       if (recipe.ingredient[i].id === this.pantry[y].ingredient) {
-  //         this.pantry[y].amount -= recipe.ingredient[i].quantity.amount;
-  //         if (this.pantry[y].amount < 0) {
-  //           this.pantry[y].amount *= (- 1);
-  //           this.addToShoppingList.push(this.pantry[y]);
-  //           this.pantry.splice([y], 1);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 
   removeFromPantry(recipe) {
     let index = this.pantry.ingredient.indexOf(recipe.ingredient.id);
