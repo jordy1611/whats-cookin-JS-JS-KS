@@ -61,7 +61,7 @@ function displayPantryPage() {
   displayRecipeToCook();
 }
 
-function addUserFavorite(event, userArray, ) {
+function addUserFavorite(event, userArray) {
   let card = event.target.closest('.recipe-card-to-cook') ||
   event.target.closest('.recipe-card')
   recipeData.forEach(recipe => {
@@ -72,10 +72,10 @@ function addUserFavorite(event, userArray, ) {
 }
 
 function removeUserFavorite(event, userArray) {
-  if(!event.target.closest('.recipe-card-to-cook')) {
+  if (!event.target.closest('.recipe-card-to-cook')) {
     let card = event.target.closest('.recipe-card')
     userArray.forEach((recipe, index) => {
-      if(recipe.id === parseInt(card.dataset.id)) {
+      if (recipe.id === parseInt(card.dataset.id)) {
         userArray.splice(index, 1)
       }
     })
@@ -232,11 +232,6 @@ function getIngredientName(ingredient) {
 function showInputFinder(event) {
   let searchBarInput = event.target.value;
   let foundRecipes = user.searchRecipeByName(searchBarInput);
-}
-
-function showInputFinder(event) {
-  var searchBarInput = event.target.value;
-  var foundRecipes = user.searchRecipeByName(searchBarInput);
   clearInnerHTML('user-recipes');
   displayRecipeCards(foundRecipes, 'user-recipes');
 }
@@ -248,11 +243,11 @@ function updateRecipesToCook(event) {
   displayRecipeToCook();
   clearInnerHTML('missing-ingredients');
   displayShoppingLists(userPantry, user, ingredientsData);
-  }
+}
 
 function displayRecipeToCook() {
-  if(user.recipesToCook.length > 0) {
-  const card = `
+  if (user.recipesToCook.length > 0) {
+    const card = `
   <article class="recipe-card-to-cook" data-id="${user.recipesToCook[0].id}">
   <img class="white-star" src="../assets/star.svg">
   <img class="red-star hidden" src="../assets/star-active.svg">
