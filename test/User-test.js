@@ -6,7 +6,9 @@ const Recipe = require('../src/Recipe');
 
 describe('User', function() {
   let user;
-  let recipe;
+  let recipe1;
+  let recipe2;
+  let recipe3;
 
   beforeEach(function() {
     user = new User(
@@ -253,13 +255,4 @@ describe('User', function() {
     user.addFavoriteRecipes(recipe3);
     expect(user.searchRecipeByName('eggs')).to.deep.equal([recipe1])
   })
-
-
-
-  //if it is an empty array what happens
-  //pass in a name that's not in the array should be empty
-
-  //it ingredients
-
-  //down the road not the whole string
 });
