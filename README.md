@@ -32,6 +32,7 @@
 * [Data Model](#data-model)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
+* [License](#license)
 * [Main Contributors](#contributors)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
@@ -40,7 +41,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Whats Cooking screenshot]()
+![Whats Cooking screenshot](assets/mainPage.png)
 
 
 A site for recipe tracking where users can select their favorite recipes and choose a recipe to cook for the week.  A user is able to see ingredients in their individual pantry and make a shopping list of items to purchase to cook their favorite recipes.
@@ -64,8 +65,17 @@ https://github.com/jordy1611/whats-cookin-JS-JS-KS.git
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+* Users can hover over a recipe to see it's list of ingredients and instructions
+![hovering gif](assets/hovering.gif)
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+* Users can favorite a recipe by clicking on the star in the top right corner. Favorite recipes will show up in the pantry page.
+![favoriting gif](assets/favoriting.gif)
+
+* Users can search for recipes based on name, ingredients or tags
+![searching gif](assets/searching.gif)
+
+* Users can select a recipe to cook by double clicking a recipe. It's remaining ingredients will be displayed in the missing ingredients section of my pantry.
+![double clicking recipe](recipeToCook.gif)
 
 The details of this project are outlined in the <a href="https://frontend.turing.io/projects/whats-cookin.html" target="\__blank">project spec</a>.
 
@@ -142,12 +152,12 @@ Contributions are what make the open source community such an amazing place to b
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
+* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
 * [Img Shields](https://shields.io)
 * [Choose an Open Source License](https://choosealicense.com)
 * [GitHub Pages](https://pages.github.com)
 * [Font Awesome](https://fontawesome.com)
 * [Unplash](https://unsplash.com/)
-* [Turing School of Software and Design](https://turing.io/)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
