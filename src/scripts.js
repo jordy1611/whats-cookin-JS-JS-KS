@@ -29,7 +29,7 @@ function onLoad() {
   randomizeUser();
   const allRecipes = generateRecipes(recipeData); //randomize recipes?
   displayRecipeCards(allRecipes, 'cards-body');
-  displayUserPantry(userPantry, ingredientsData);
+  displayUserPantry(userPantry, user, ingredientsData);
 //  userRecipes = generateRecipes(user.favoriteRecipes);
 }
 
@@ -37,28 +37,34 @@ function clickHandler(event) {
   if (event.target.classList.contains('recipes-button')) {
     displayRecipesPage();
   } else if (event.target.classList.contains('my-pantry-button')) {
+    userRecipes = generateRecipes(user.favoriteRecipes);
+    clearInnerHTML('user-recipes');
+    // displayRecipeCards(userRecipes, 'pantry-body');
+    displayUserPantry(userPantry, user, ingredientsData);
+    clearInnerHTML('user-recipes');
+    displayRecipeCards(userRecipes, 'user-recipes');
     displayPantryPage(userPantry, user, ingredientsData);
   } else if (event.target.classList.contains('white-star')) {
     addUserFavorite(event, user.favoriteRecipes); //turn into helper function
     event.target.src = "../assets/star-active.svg";
     event.target.classList.add('red-star')
     event.target.classList.remove('white-star')
-    userRecipes = generateRecipes(user.favoriteRecipes);
-    displayRecipeCards(userRecipes, 'pantry-body');
-    displayUserPantry(userPantry, user, ingredientsData);
-    clearInnerHTML('user-recipes');
-    displayRecipeCards(userRecipes, 'user-recipes');
+    // userRecipes = generateRecipes(user.favoriteRecipes);
+    // displayRecipeCards(userRecipes, 'pantry-body');
+    // displayUserPantry(userPantry, user, ingredientsData);
+    // clearInnerHTML('user-recipes');
+    // displayRecipeCards(userRecipes, 'user-recipes');
     // displayUserPantry();
   } else if (event.target.classList.contains('red-star')) {
     removeUserFavorite(event, user.favoriteRecipes); //turn into helper function
     event.target.src = "../assets/star.svg";
     event.target.classList.add('white-star')
     event.target.classList.remove('red-star')
-    userRecipes = generateRecipes(user.favoriteRecipes);
-    displayRecipeCards(userRecipes, 'pantry-body');
-    displayUserPantry(userPantry, user, ingredientsData);
-    clearInnerHTML('user-recipes');
-    displayRecipeCards(userRecipes, 'user-recipes');
+    // userRecipes = generateRecipes(user.favoriteRecipes);
+    // displayRecipeCards(userRecipes, 'pantry-body');
+    // displayUserPantry(userPantry, user, ingredientsData);
+    // clearInnerHTML('user-recipes');
+    // displayRecipeCards(userRecipes, 'user-recipes');
     // displayUserPantry();
   }
 }
@@ -134,7 +140,7 @@ function clearInnerHTML(className) {
 }
 
 function displayPantryLists(pantry, ingredientsArray) {
-  userPantrySection.innerHTML = '';
+  userPantrySection.innerHTML = '<h3>Pantry</h3>';
   pantry.pantry.forEach(function(item) {
     const list = `
         <li class="ingredient">${itemNameById(item.ingredient, ingredientsArray)}</li>
@@ -144,12 +150,13 @@ function displayPantryLists(pantry, ingredientsArray) {
 }
 
 function displayShoppingLists(pantry, user, ingredientsArray) {
-  if (pantry.shoppingList > 1) {
-    pantry.checkPantry(user.favoriteRecipes[0]);
+  if (user.recipesToCook.length > 0) {
+    pantry.checkPantry(user.recipesToCook[0]);
+    userShoppingList.innerHTML = '<h3>Shopping List</h3>';
     pantry.shoppingList.forEach(function(item) {
       const list = `
           <li class="ingredient">${itemNameById(item.id, ingredientsArray)}</li>
-            <li class="amount">Qty: ${item.amount}</li>`;
+            <li class="amount">Qty: ${item.quantity.amount} - ${item.quantity.unit}</li>`;
       userShoppingList.insertAdjacentHTML('beforeend', list);
     })
   }
@@ -217,12 +224,10 @@ function randomizeUser() {
   let greeting = document.querySelector('.user-profile-display');
   greeting.innerHTML = `Welcome, ${user.name}!`
   userPantry = new Pantry(user);
-  // return user;
 }
 
 
 function showInputFinder(event) { //updated parameters in displayRecipeCards
-
   var searchBarInput = event.target.value;
   var foundRecipes = user.searchRecipeByName(searchBarInput);
   clearInnerHTML('user-recipes');
@@ -241,20 +246,23 @@ function addUserFavorite(event, userArray, ) {
 }
 
 function removeUserFavorite(event, userArray) {
-  let card = event.target.closest('.recipe-card')
-  userArray.forEach((recipe, index) => {
-    if(recipe.id === parseInt(card.dataset.id)) {
-      userArray.splice(index, 1)
-    }
-  })
+  if(!event.target.closest('.recipe-card-to-cook')) {
+    let card = event.target.closest('.recipe-card')
+    userArray.forEach((recipe, index) => {
+      if(recipe.id === parseInt(card.dataset.id)) {
+        userArray.splice(index, 1)
+      }
+    })
+  }
 }
 
 function updateRecipesToCook(event) {
-  //if(!user.recipesToCook.includes())
   clearInnerHTML('user-recipes');
   addUserFavorite(event, user.recipesToCook);
   displayRecipeCards(userRecipes, 'user-recipes');
   displayRecipeToCook();
+  clearInnerHTML('missing-ingredients');
+  displayShoppingLists(userPantry, user, ingredientsData);
   }
 
   function displayRecipeToCook() {
