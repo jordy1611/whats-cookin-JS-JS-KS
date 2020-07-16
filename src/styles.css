@@ -199,8 +199,9 @@ h2 {
 }
 
 
+
 h3 {
-  border-bottom: 4px solid black;
+  border-bottom: 4px solid #FFFFFF;
   font-size: 2em;
   margin-bottom: 6px;
   text-align: center;

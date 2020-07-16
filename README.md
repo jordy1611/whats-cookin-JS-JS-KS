@@ -1,9 +1,9 @@
 
-<!-- [![Contributors][contributors-shield]][contributors-url]
+[![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![LinkedIn][linkedin-shield]][linkedin-url] -->
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 <br />
@@ -18,9 +18,6 @@
     <br />
     <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
-    <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS">View Demo</a>
-    ·
     <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS/issues">Report Bug</a>
     ·
     <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS/issues">Request Feature</a>
@@ -112,7 +109,6 @@ Fully functioning recipe class which creates recipe cards and stores all relevan
 A fully functioning pantry class which holds all of the owner's ingredients and amount of ingredients. A user should be able to determine whether their pantry has enough ingredients to cook a given meal, determine the amount of ingredients still needed to cook a given meal (based on what’s in the pantry).
 
 A fully functioning ui which can switch between a home page filled with recipe cards. A pantry page which lists all user ingredients and recommend recipes based on those ingredients.
- ..
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -125,29 +121,23 @@ See the [open issues](https://github.com/jordy1611/whats-cookin-JS-JS-KS/issues)
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+* Fork the Project
 
-<!-- LICENSE -->
-## License
+* Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 
-Distributed under the MIT License. See `LICENSE` for more information.
+* Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+
+* Push to the Branch (`git push origin feature/AmazingFeature`)
+
+* Open a Pull Request
 
 
-## Main Contributors ##
-
-[Jordy Shryock](https://github.com/jordy1611), [Joshua Sevy](https://github.com/JoshSevy), [Katy St Sauveur](https://github.com/krogowsk531)
-
-<!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-Joshua Sevy - joshuasevy@outlook.com
+* Jordy Shryock - jordy1611@gmail.com
+* Joshua Sevy - joshuasevy@outlook.com
+* Katy St Sauveur - katyrogowski@yahoo.com
 
-Project Link: [https://github.com/jordy1611/whats-cookin-JS-JS-KS](https://github.com/jordy1611/whats-cookin-JS-JS-KS)
 
 
 
