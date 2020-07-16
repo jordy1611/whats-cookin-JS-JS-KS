@@ -68,7 +68,7 @@ https://github.com/jordy1611/whats-cookin-JS-JS-KS.git
 * Users can hover over a recipe to see it's list of ingredients and instructions
 ![hovering gif](assets/hovering.gif)
 
-* Users can favorite a recipe by clicking on the star in the top right corner. Favorite recipes will show up in the pantry page.
+* Users can favorite a recipe by clicking on the star in the top left corner. Favorite recipes will show up in the pantry page.
 ![favoriting gif](assets/favoriting.gif)
 
 * Users can search for recipes based on name, ingredients or tags
